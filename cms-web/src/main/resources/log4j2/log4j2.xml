@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off">
+    <Properties>
+        <Property name="LOG_PATH">./logs</Property>
+        <Property name="FILE_PREFIX">cms</Property>
+    </Properties>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %c{2} (%file:%line) - %m%n"/>
+        </Console>
+        <RollingRandomAccessFile name="LOG" fileName="${LOG_PATH}/${FILE_PREFIX}.log"
+                                 filePattern="${LOG_PATH}/$${date:yyyy-MM}/${FILE_PREFIX}-%d{MM-dd-yyyy}-%i.log.gz">
+            <ThresholdFilter level="debug"/>
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="1024 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <!-- 定义提高其他日志级别使得日志不在控制台打印出来 -->
+        <Logger name="org.apache.logging.log4j.core" level="warn"/>
+        <Logger name="org.apache.logging.log4j2" level="warn"/>
+
+        <AsyncRoot level="debug">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="LOG"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

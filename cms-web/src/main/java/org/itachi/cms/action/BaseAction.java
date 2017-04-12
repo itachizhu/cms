@@ -1,6 +1,7 @@
 package org.itachi.cms.action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -19,6 +20,9 @@ abstract class BaseAction {
 
     @Context
     protected HttpServletRequest request;
+
+    @Context
+    protected HttpServletResponse response;
 
     @Context
     protected UriInfo uriInfo;

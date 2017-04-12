@@ -11,5 +11,7 @@
 
     <import resource="spring-context-utils.xml" />
 
+    <import resource="spring-message.xml" />
+
     <import resource="classpath*:spring/spring-context-mysql.xml" />
 </beans>

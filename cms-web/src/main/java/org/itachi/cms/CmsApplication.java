@@ -4,8 +4,10 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
+import org.itachi.cms.filter.AuthorizationRequestFilter;
 import org.itachi.cms.provider.*;
 
+import javax.ws.rs.Priorities;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,7 @@ public class CmsApplication extends ResourceConfig {
                 .register(BaseExceptionMapperProvider.class)
                 .register(MultiPartFeature.class)
                 .register(JspMvcFeature.class)
+                .register(AuthorizationRequestFilter.class, Priorities.AUTHENTICATION)
                 .addProperties(properties);
     }
 }

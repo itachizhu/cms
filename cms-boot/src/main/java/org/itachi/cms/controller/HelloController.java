@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Time: 01:35
  */
 @Controller
+@RequestMapping("/test")
 public class HelloController {
     @Autowired
     private AdminMapper adminMapper;
@@ -24,5 +25,11 @@ public class HelloController {
     public AdminUserDTO hello() throws Exception {
         return adminMapper.getAdminUser(1L);
         // return "Hello World!";
+    }
+
+    @RequestMapping(value = "/myerror", method = RequestMethod.GET)
+    @ResponseBody
+    public String error() throws Exception {
+        throw new Exception("自定义尝试抛出异常!");
     }
 }

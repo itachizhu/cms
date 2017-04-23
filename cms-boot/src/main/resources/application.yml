@@ -1,4 +1,7 @@
 debug: true
+server:
+  context-path: /cms
+  port: 9091
 logging:
   level:
     org.springframework.web: DEBUG
@@ -18,5 +21,3 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
   type-aliases-package: org.itachi.cms.dto
-
-

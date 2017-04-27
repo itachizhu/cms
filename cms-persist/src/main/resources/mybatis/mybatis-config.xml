@@ -13,4 +13,7 @@
         -->
         <package name="org.itachi.cms.dto" />
     </typeAliases>
+    <typeHandlers>
+        <typeHandler javaType="Boolean" jdbcType="CHAR" handler="org.itachi.cms.util.BooleanTypeHandler"/>
+    </typeHandlers>
 </configuration>

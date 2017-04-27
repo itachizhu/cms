@@ -17,7 +17,7 @@ import java.util.Map;
  */
 abstract class BaseAction {
     protected static final String APPLICATION_JSON_UTF8 = MediaType.APPLICATION_JSON + ";charset=UTF-8";
-
+    protected static final String SUCCESS ="success";
     @Context
     protected HttpServletRequest request;
 

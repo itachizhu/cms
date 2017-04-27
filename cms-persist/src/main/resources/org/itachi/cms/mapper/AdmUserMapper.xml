@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itachi.cms.mapper.AdmUserMapper">
+
+    <resultMap id="admUserResultMap" type="admuserDTO">
+        <id property="id" column="id"/>
+        <result property="accout" column="accout" javaType="string"/>
+        <result property="mail" column="mail" javaType="string"/>
+        <result property="name" column="name" javaType="string"/>
+        <result property="phone" column="phone" javaType="string"/>
+        <result property="department" column="department" javaType="string"/>
+        <result property="password" column="password" javaType="string"/>
+        <result property="createtime" column="createtime" javaType="DATE"/>
+        <result property="updatetime" column="updatetime" javaType="DATE"/>
+        <result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="admUser">
+        select * from t_admuser t
+    </sql>
+
+    <sql id="count">
+        select count(1) from t_admuser t
+    </sql>
+
+    <sql id="condition">
+        where t.isdel = 1
+        <if test="id !=null and id!=''">
+            AND t.id = #{id}
+        </if>
+        <if test="mail !=null and mail!=''">
+            AND t.mail=#{mail}
+        </if>
+        <if test="name !=null and name!=''">
+            AND t.name=#{name}
+        </if>
+        <if test="phone !=null and phone!=''">
+            AND t.phone=#{phone}
+        </if>
+        <if test="accout !=null and accout!=''">
+            AND t.accout=#{accout}
+        </if>
+    </sql>
+
+
+    <select id="getUserCount" resultType="int" parameterType="admuserDTO">
+        <include refid="count"/>
+        <include refid="condition"/>
+    </select>
+
+    <select id="getUserList" resultMap="admUserResultMap" parameterType="map">
+        select id,accout,mail,name,phone,department,password,createtime,updatetime,isdel from t_admuser t
+        where t.isdel = 1
+        <if test="admUser.id !=null and admUser.id!=''">
+            AND t.id = #{admUser.id}
+        </if>
+        <if test="admUser.mail !=null and admUser.mail!=''">
+            AND t.mail=#{admUser.mail}
+        </if>
+        <if test="admUser.name !=null and admUser.name!=''">
+            AND t.name=#{admUser.name}
+        </if>
+        <if test="admUser.phone !=null and admUser.phone!=''">
+            AND t.phone=#{admUser.phone}
+        </if>
+        <if test="admUser.accout !=null and admUser.accout!=''">
+            AND t.accout=#{admUser.accout}
+        </if>
+
+        limit #{pager.begin}, #{pager.rows}
+    </select>
+
+
+    <select id="getUser" resultMap="admUserResultMap" parameterType="string">
+        <include refid="admUser"/>
+        where t.accout = #{accout} and t.isdel =1
+    </select>
+
+    <select id="getUserById" resultMap="admUserResultMap" parameterType="long">
+        <include refid="admUser"/>
+        where t.id = #{id}
+    </select>
+
+    <select id="findUser" resultMap="admUserResultMap" parameterType="admuserDTO">
+        <include refid="admUser"/>
+        where t.accout = #{accout} and t.password = password(#{password}) and t.isdel =1
+    </select>
+
+    <update id="delUser" parameterType="list">
+        update t_admuser set isdel = 0 where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="delRel" parameterType="list">
+        update t_user_group_rel set isdel = 0 where userid in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="updateUser" parameterType="admuserDTO">
+        update t_admuser  SET
+            <if test="accout !=null and accout!=''">
+                accout= #{accout},
+            </if>
+            <if test="name !=null and name!=''">
+                name= #{name},
+            </if>
+            <if test="mail !=null and mail!=''">
+                mail= #{mail},
+            </if>
+            <if test="phone !=null and phone!=''">
+                phone= #{phone},
+            </if>
+            <if test="department !=null and department!=''">
+                department= #{department},
+            </if>
+            <if test="password !=null and password!=''">
+                password = password(#{password}),
+            </if>
+
+            updatetime=now()
+
+        where id=#{id};
+
+    </update>
+
+    <insert id="addUser" parameterType="admuserDTO">
+        INSERT into t_admuser
+            (accout,name,mail,phone,department,password,createtime,updatetime,isdel)
+        VALUES (
+            #{accout},
+            #{name},
+            #{mail},
+            #{phone},
+            #{department},
+            password(#{password}),
+            now(),
+            now(),
+            #{isdel}
+        )
+    </insert>
+
+
+</mapper>

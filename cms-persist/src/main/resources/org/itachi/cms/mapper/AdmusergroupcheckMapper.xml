@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itachi.cms.mapper.AdmusergroupcheckMapper">
+  
+    <resultMap id="admusergroupcheckResultMap" type="admusergroupcheckDTO">
+        <id property="id" column="id"/>
+        <result property="groupname" column="groupname" javaType="string"/>
+        <result property="des" column="des" javaType="string"/>
+        <result property="createtime" column="createtime" javaType="DATE"/>
+        <result property="updatetime" column="updatetime" javaType="DATE"/>
+        <result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER" />
+        <!--<result property="check" column="check" javaType="boolean" jdbcType="TINYINT" />-->
+    </resultMap>
+
+    <select id="getAllCheckGroup" resultType="long" parameterType="long">
+        SELECT groupid from t_user_group_rel t where isdel=1 and t.userid = #{id}
+    </select>
+</mapper>

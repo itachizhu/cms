@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>CMS Web Application</display-name>
-    
+
     <context-param>
         <param-name>log4jConfiguration</param-name>
         <param-value>classpath:log4j2/log4j2.xml</param-value>
     </context-param>
-    
+
     <listener>
         <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
     </listener>
@@ -21,11 +21,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>org.itachi.cms.config.ApplicationConfigure</param-value>
     </context-param>
-    
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
+
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
@@ -59,7 +59,7 @@
         </init-param>
         <init-param>
             <param-name>jersey.config.servlet.filter.staticContentRegex</param-name>
-            <param-value>/((resources|images)/.*)|(.*\.(jsp|html|htm))</param-value>
+            <param-value>/((static|resources|images)/.*)|(.*\.(jsp|html|htm))</param-value>
         </init-param>
     </filter>
     <filter-mapping>

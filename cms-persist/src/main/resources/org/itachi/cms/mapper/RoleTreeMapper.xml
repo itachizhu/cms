@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itachi.cms.mapper.RoleTreeMapper">
+  
+    <resultMap id="roleTreeResultMap" type="roleTreeDTO">
+        <id property="id" column="id"/>
+        <result property="pid" column="pid" javaType="Long"/>
+        <result property="name" column="name" javaType="string"/>
+        <!--<result property="open" column="open" javaType="boolean" jdbcType="BOOLEAN" />
+        <result property="checked" column="checked" javaType="boolean" jdbcType="BOOLEAN" />-->
+        <result property="roleurl" column="roleurl" javaType="string"/>
+        <result property="click" column="click" javaType="string"/>
+    </resultMap>
+
+
+
+</mapper>

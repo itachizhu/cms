@@ -21,6 +21,8 @@ import javax.ws.rs.ext.Provider;
 @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 public class JacksonIgnoreNullProvider extends JacksonJsonProvider {
     public JacksonIgnoreNullProvider() {
-        super(new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL).configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true));
+        super(new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true)
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false));
     }
 }

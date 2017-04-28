@@ -153,7 +153,7 @@ public class RoleAction extends BaseAction {
     public Viewable tomodify(@QueryParam("roleid") long id) throws Exception {
         RoleDTO roleDTO = roleRepository.findRole(id);
 
-        request.getSession().setAttribute("role", roleDTO);
+        request.setAttribute("role", roleDTO);
         return new Viewable("/role/modifyRole");
     }
 

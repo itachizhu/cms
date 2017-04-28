@@ -34,7 +34,7 @@ public class MainAction extends BaseAction {
     @Produces(MediaType.TEXT_HTML)
    public Viewable header() throws Exception {
         AdmuserDTO userDTO = (AdmuserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
-        request.getSession().setAttribute("userDTO", userDTO);
+        request.setAttribute("userDTO", userDTO);
         return new Viewable("/common/header");
     }
 

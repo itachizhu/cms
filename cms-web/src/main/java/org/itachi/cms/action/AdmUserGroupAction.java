@@ -150,7 +150,7 @@ public class AdmUserGroupAction extends BaseAction {
     public Viewable tomodify(@QueryParam("admusergroupid") long id) throws Exception {
 
         AdmusergroupDTO admusergroupDTO = admUserGroupRepository.admusergroupById(id);
-        request.getSession().setAttribute("admusergroup", admusergroupDTO);
+        request.setAttribute("admusergroup", admusergroupDTO);
 
         return new Viewable("/admusergroup/modifyAdmusergroup");
     }

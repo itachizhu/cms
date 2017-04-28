@@ -1,3 +1,4 @@
+<%@ page import="org.itachi.cms.dto.RoleDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -33,12 +34,18 @@
                 <td>是否作为菜单:</td>
                 <td>
                     <select class="easyui-combobox" id="m_roleismenu">
-                        <c:if test="${role.ismenu == 0}">
+                      <%--  <c:if test="${role.ismenu == 0}">
                             <option value="0"  selected="selected"  >是</option>
                         </c:if>
                         <c:if test="${role.ismenu == 1}">
                             <option value="1"  selected="selected"  >否</option>
-                        </c:if>
+                        </c:if>--%>
+                              <%
+                                  RoleDTO roleDTO = (RoleDTO)(request.getAttribute("role"));
+                                  long ismenu=roleDTO.getIsmenu();
+                              %>
+                              <option value="0" <%if(ismenu==0){%>selected="selected"<% }%> >是</option>
+                              <option value="1" <%if(ismenu==1){%>selected="selected"<% }%> >否</option>
                      </select>
                 </td>
             </tr>

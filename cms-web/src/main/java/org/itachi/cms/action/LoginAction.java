@@ -64,7 +64,7 @@ public class LoginAction extends BaseAction {
      * 登陆
      */
     @POST
-    @Path("login/login")
+    @Path("login")
     @Consumes("application/x-www-form-urlencoded")
     // @ResponseStatus(HttpStatus.NO_CONTENT)
     public String toLogin(@FormParam("accout") String accout, @FormParam("password") String password) throws Exception {

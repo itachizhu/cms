@@ -45,13 +45,13 @@
       <input type="submit" onclick="submitLogin()" class="sub_button" name="button" id="button" value="SIGN-IN" style="opacity: 0.7;"></label>
         </div>
       </div>
-      <br>
-      <br></body>
+      <br />
+      <br /></body>
 <script>
 
   function submitLogin() {
   
-    url = "login/login"
+    var url = "<%=request.getContextPath()%>/login";
     
     var data = {
         accout: $("input[name='accout']").val(),

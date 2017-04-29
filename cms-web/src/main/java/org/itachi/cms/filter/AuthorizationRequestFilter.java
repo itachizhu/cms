@@ -99,7 +99,7 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
             if (apiFlag) {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).type(APPLICATION_JSON_UTF8).entity(result).build());
             } else  {
-                response.sendRedirect(url);
+                response.sendRedirect(request.getContextPath() + "/" + url);
             }
         }
 

@@ -98,7 +98,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 response.getWriter().append(mapper.writeValueAsString(result)).flush();
                 response.getWriter().close();
             } else  {
-                response.sendRedirect(url);
+                response.sendRedirect(request.getContextPath() + "/" + url);
             }
             return false;
         }

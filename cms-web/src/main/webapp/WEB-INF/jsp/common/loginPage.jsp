@@ -51,7 +51,7 @@
 
   function submitLogin() {
   
-    url = "login/login"
+    url = "<%=request.getContextPath()%>/login"
     
     var data = {
         accout: $("input[name='accout']").val(),

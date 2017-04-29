@@ -1,9 +1,11 @@
 package org.itachi.cms.controller;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +31,13 @@ public class HelloController {
 
     @RequestMapping(value = "/myerror", method = RequestMethod.GET)
     @ResponseBody
-    public String error() throws Exception {
+    public MysqlxDatatypes.Scalar.String error() throws Exception {
         throw new Exception("自定义尝试抛出异常!");
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Model model) throws Exception {
+        model.addAttribute("name", "itachi");
+        return "index";
     }
 }

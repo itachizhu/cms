@@ -1,6 +1,5 @@
 package org.itachi.cms.controller;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class HelloController {
 
     @RequestMapping(value = "/myerror", method = RequestMethod.GET)
     @ResponseBody
-    public MysqlxDatatypes.Scalar.String error() throws Exception {
+    public String error() throws Exception {
         throw new Exception("自定义尝试抛出异常!");
     }
 

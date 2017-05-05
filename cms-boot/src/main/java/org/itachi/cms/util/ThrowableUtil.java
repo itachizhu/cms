@@ -20,6 +20,7 @@ public final class ThrowableUtil {
     private ThrowableUtil() {
     }
 
+
     private static final String MESSAGE = "message";
     private static final String CODE = "code";
 

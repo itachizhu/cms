@@ -29,6 +29,7 @@ public final class LocaleUtil {
             }
         } catch (Exception e) {
 
+
         }
         return Locale.getDefault();
     }

@@ -12,6 +12,7 @@ var admusergroupsetting = {
     }
 };
 
+
 //初始化tree
 $(document).ready(loadTree());
 function loadTree() {

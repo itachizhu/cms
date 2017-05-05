@@ -7,6 +7,7 @@ $(document).ready(function(){
     // addTab('添加系统用户auto','/admuser/toaddadmuser')
 
 
+
 });
 //添加标签页的方法
 function addTab(title, url) {

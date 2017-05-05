@@ -10,6 +10,7 @@
  * email: hunter.z@263.net
  * Date: 2016-06-06
  */
+
 (function($){
 	var settings = {}, roots = {}, caches = {},
 	//default consts of core

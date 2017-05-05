@@ -44,7 +44,6 @@ public class MainController  {
         return "/index";
     }
 
-
     /**
      加载主页面权限tree
      */

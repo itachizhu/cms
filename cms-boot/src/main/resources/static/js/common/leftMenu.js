@@ -16,8 +16,8 @@ var leftMenuSetting = {
 // 初始化左边菜单tree
 $(document).ready(loadTree());
 function loadTree() {
-
-    url = "loadMenu"
+    debugger
+    url = "/cms/loadMenu"
     var data;
     $.post(url, data, function (result) {
         // zNodes = result

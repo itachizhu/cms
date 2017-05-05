@@ -2,7 +2,7 @@
 /* CSS Document */
 
 
-#up_top{background:url(../images/top_bg.gif) no-repeat; padding:15px;}
+/* #up_top{background:url(../images/top_bg.gif) no-repeat; padding:15px;}*/
 			#up_top_nav{ }
 .top_nav1,.top_nav2,.top_nav3{float:left; line-height:37px; text-align:center; width:92px; font-size:14px; text-shadow: 1px 1px 0 #e0e0e0; color:#2e2e2e; font-weight:bold; cursor:pointer; text-decoration:none; background:url(../images/top_nav.gif); height:39px;}
 #up_top_nav .top_nav1:hover,#up_top_nav .top_nav2:hover,#up_top_nav .top_nav3:hover{background:url(../images/top_nav.gif) no-repeat;color:#fff;text-shadow: 1px 1px 0 #0b6ac6; }

@@ -4,6 +4,7 @@ import org.itachi.cms.bean.AdmUserBean;
 import org.itachi.cms.service.AdmUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -13,11 +14,16 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/api/admuser")
+@RequestMapping("/admuser")
 public class AdmUserController {
 
     @Autowired
     private AdmUserService admUserService;
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String admuserList() throws Exception {
+        return "/admUser/admUserList";
+    }
 
     /**
      * 获取分页展示数据

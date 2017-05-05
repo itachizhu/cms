@@ -3,9 +3,40 @@
 <head>
     <title>首页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/js/themes/default/easyui.css" th:href="@{/js/themes/default/easyui.css}" />
+    <link rel="stylesheet" type="text/css" href="/js/themes/icon.css" th:href="@{/js/themes/icon.css}" />
+    <!--<link rel="stylesheet" type="text/css" href="/static/js/themes/color.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/static/js/demo/demo.css">-->
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css" />-->
+    <!--<link rel="stylesheet" href="/static/css/font-awesome.min.css" />-->
+
+    <link rel="stylesheet" href="/css/ace.min.css" th:href="@{/css/ace.min.css}" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="/css/demo.css" th:href="@{/css/demo.css}" type="text/css" />
+    <link rel="stylesheet" href="/css/zTreeStyle/zTreeStyle.css" th:href="@{/css/zTreeStyle/zTreeStyle.css}" type="text/css" />
+
 </head>
-<body>
-<!--/*@thymesVar id="name" type="java.lang.String"*/-->
-<p th:text="'Hello ' + ${name} + '!'" ></p>
+<body class="easyui-layout">
+<!--顶部logo区域-->
+<div id="header" data-options="region:'north',split:true" th:href="@{/header}" border="false" style="height:100px;">
+</div>
+<!--页面左侧导航栏-->
+<div id="leftMenu" data-options="region:'west',iconCls:'icon-ok',title:'导航菜单',split:true"  th:href="@{/leftMenu}" style=" width:220px;background:#ffffff">
+</div>
+<!--中间展示区-->
+<div data-options="region:'center'" style="padding:0px;background:#eee;">
+    <div id="mainTab" class="easyui-tabs" data-options="fit:true" border="false" style="background:#E0ECFF">
+        <div data-options="region:'west',iconCls:'icon-home',title:'   Home'"   th:href="@{/welcome}" style="display:none;">
+        </div>
+    </div>
+</div>
 </body>
+
+<script type="text/javascript"  th:src="@{/js/jquery/jquery.min.js}"></script>
+<script type="text/javascript"  th:src="@{/js/jquery/jquery.ztree.core.js}"></script>
+<!--easyUI-->
+<script type="text/javascript"  th:src="@{/js/locale/easyui-lang-zh_CN.js}"></script>
+<script type="text/javascript"  th:src="@{/js/jquery/jquery.easyui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery/jquery.ztree.excheck.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+<script type="text/javascript" th:src="@{/js/phpjs-min.js}"></script>
 </html>

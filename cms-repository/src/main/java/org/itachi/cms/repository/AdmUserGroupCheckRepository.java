@@ -27,6 +27,7 @@ public class AdmUserGroupCheckRepository {
         if (list.isEmpty() && list.size()<1) {
             return null;
         }
+
         Map<String,Boolean>roleIdMap =new HashMap<String,Boolean>();
 
         for (int i = 0; i < list.size(); i++ ){

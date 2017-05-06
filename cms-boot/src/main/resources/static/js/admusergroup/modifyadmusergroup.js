@@ -13,7 +13,7 @@ var admusergroupsetting = {
 };
 
 
-//初始化tree
+//初始化tree 
 $(document).ready(loadTree());
 function loadTree() {
     var admgroupuserid = $("input[name='admgroupuserid']").val()

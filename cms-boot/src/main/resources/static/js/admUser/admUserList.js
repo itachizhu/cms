@@ -1,24 +1,6 @@
-alert(11111);
-$(function(){
-    $.ajax({
-        url:"/admuser/gridlist",
-        data:{
-            username:"xxx"
-        },
-        type:"get",
-        dataType:"text",
-        success:function(text){
-            debugger;
-            alert(text);
-            $("#usernamediv").text(text);
-        }
-    });
- });
-
-
-
-
 $(function () {
+    debugger;
+
     searAdmUserObj = {
         search: function () {
             $('#admUser_list').datagrid('load', {
@@ -30,10 +12,9 @@ $(function () {
             });
         }
     }
-
     //datagrid初始化
     $('#admUser_list').datagrid({
-        url: '/admuser/gridlist',
+        url: '/cms/admuser/gridlist',
 
         iconCls: 'icon-edit',//图标
         width: 700,

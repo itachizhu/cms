@@ -28,9 +28,9 @@ public class AdmUserController {
     /**
      * 获取分页展示数据
      */
-    @RequestMapping(value = "/gridlist", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> gridlist(@RequestBody AdmUserBean admUserBean) throws Exception {
+    @RequestMapping(value = "/gridlist", method = RequestMethod.POST)
+    public Map<String, Object> gridlist(AdmUserBean admUserBean) throws Exception {
         return admUserService.gridlist(admUserBean);
     }
 

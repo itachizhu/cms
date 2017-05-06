@@ -48,6 +48,7 @@ public class MainController  {
     /**
      加载主页面权限tree
      */
+
     @RequestMapping(value = "loadMenu", method = RequestMethod.POST)
     @ResponseBody
     public List<RoleTreeDTO> loadMenu() throws Exception {

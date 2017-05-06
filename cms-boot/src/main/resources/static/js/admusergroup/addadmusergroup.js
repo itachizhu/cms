@@ -15,6 +15,7 @@ var admusergroupsetting = {
 
 
 
+
 //初始化左边tree
 $(document).ready(loadTree());
 function loadTree() {

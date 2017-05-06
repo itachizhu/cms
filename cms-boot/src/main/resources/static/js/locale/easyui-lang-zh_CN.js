@@ -13,6 +13,7 @@ if ($.messager){
 	$.messager.defaults.ok = '确定';
 	$.messager.defaults.cancel = '取消';
 }
+
 $.map(['validatebox','textbox','filebox','searchbox',
 		'combo','combobox','combogrid','combotree',
 		'datebox','datetimebox','numberbox',

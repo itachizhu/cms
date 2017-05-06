@@ -8,6 +8,7 @@ $(function () {
             });
         }
     }
+
     //datagrid初始化
     $('#role_list').datagrid({
         url: 'role/gridlist',

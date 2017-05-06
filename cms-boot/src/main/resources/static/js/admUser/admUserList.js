@@ -10,6 +10,7 @@ $(function () {
             });
         }
     }
+
     //datagrid初始化
     $('#admUser_list').datagrid({
         url: 'admuser/gridlist',

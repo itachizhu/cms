@@ -6,6 +6,7 @@ $(function () {
             });
         }
     }
+
     //datagrid初始化
     $('#admusergroup').datagrid({
         url: 'admusergroup/gridlist',

@@ -11,6 +11,7 @@ function submitAddRoleForm() {
         describe: $("input[name='roledescribe']").val()
     };
 
+
     $.post(url, data, function (result) {
         if (result == "success") {
             clearAddRoleForm()

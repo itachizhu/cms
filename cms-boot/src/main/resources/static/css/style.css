@@ -6,6 +6,7 @@ h1, h2, h3, h4, h5, h6 { font-family: "microsoft yahei", Arial, Helvetica, sans-
 ol, ul, li, div, p, dl, dt, dd { list-style:none; padding:0; text-justify:inter-ideograph; font-size:12px; font-family:Arial, Helvetica, sans-serif;
 	margin:0px;
 }
+
 a, img, table, td, tr { border:none; }
 .clear { clear:both; }
 /* a { color:#ff3800 ;text-decoration:none}*/

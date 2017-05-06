@@ -9,7 +9,6 @@ import org.itachi.cms.repository.UserGroupRelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,6 +36,8 @@ public class AdmUserService {
         map.put("total", admUserRepository.getUserCount(userDTO));
         return map;
     }
-
+    public AdmuserDTO getUserByAccout(AdmuserDTO amduserDTO) throws Exception {
+        return admUserRepository.getUserByAccout(amduserDTO);
+    }
 
 }

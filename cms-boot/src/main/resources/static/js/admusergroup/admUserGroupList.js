@@ -1,5 +1,4 @@
 $(function () {
-    alert(1111);
     searAdmUserGroupObj = {
         search: function () {
             $('#admusergroup_list').datagrid('load', {

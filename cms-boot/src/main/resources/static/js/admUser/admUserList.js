@@ -1,5 +1,6 @@
 $(function () {
     debugger;
+
     searAdmUserObj = {
         search: function () {
             $('#admUser_list').datagrid('load', {

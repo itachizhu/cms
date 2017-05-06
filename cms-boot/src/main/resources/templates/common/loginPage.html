@@ -51,11 +51,9 @@
   </div>
 </body>
 <script type="text/javascript" th:inline="javascript">
-
+  /*<![CDATA[*/
   function submitLogin() {
-    /*<![CDATA[*/
     var url = [[@{/login}]];
-    
     var data = {
         accout: $("input[name='accout']").val(),
         password: $("input[name='password']").val()
@@ -83,9 +81,8 @@
             }
         }
     });
-    /*]]>*/
 }
-
+  /*]]>*/
 </script>
 
 

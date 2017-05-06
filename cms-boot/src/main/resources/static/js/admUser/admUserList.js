@@ -1,6 +1,4 @@
 $(function () {
-    debugger;
-
     searAdmUserObj = {
         search: function () {
             $('#admUser_list').datagrid('load', {
@@ -14,8 +12,7 @@ $(function () {
     }
     //datagrid初始化
     $('#admUser_list').datagrid({
-        url: '/cms/admuser/gridlist',
-
+        url: 'admuser/gridlist',
         iconCls: 'icon-edit',//图标
         width: 700,
         height: 'auto',

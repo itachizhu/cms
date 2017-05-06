@@ -1,6 +1,5 @@
 package org.itachi.cms.service;
 
-import org.itachi.cms.bean.AdmUserBean;
 import org.itachi.cms.dto.AdmuserDTO;
 import org.itachi.cms.dto.PagerDTO;
 import org.itachi.cms.repository.AdmUserGroupCheckRepository;
@@ -31,15 +30,9 @@ public class AdmUserService {
     @Autowired
     private AdmUserGroupCheckRepository groupCheckRepository;
 
-    public Map<String, Object> gridlist(AdmUserBean admUserBean) throws Exception {
-        AdmuserDTO userDTO = new AdmuserDTO();
-        userDTO.setId(admUserBean.admUserId);
-        userDTO.setAccout(admUserBean.account);
-        userDTO.setMail(admUserBean.admUserMail);
-        userDTO.setPhone(admUserBean.admUserPhone);
-        userDTO.setName(admUserBean.admUserName);
-        PagerDTO pager = new PagerDTO(admUserBean.page, admUserBean.rows);
-        Map<String, Object> map = new HashMap<String, Object>();
+    public Map<String, Object> gridlist(Map<String, Object> map) throws Exception {
+        AdmuserDTO userDTO = (AdmuserDTO)map.get("userDTO");
+        PagerDTO pager = (PagerDTO) map.get("pager");
         map.put("rows", admUserRepository.getUserList(userDTO, pager));
         map.put("total", admUserRepository.getUserCount(userDTO));
         return map;

@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by liaoyongchao on 2017/5/3.
  */
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/admusergroup")
 public class AdmUserGroupController {
-    @Autowired
-    private UserGroupService userGroupService;
+   // @Autowired
+    //private UserGroupService userGroupService;
     @Autowired
     private RoleService roleService;
 
-
-    @RequestMapping(value = "/userGroupList", method = RequestMethod.GET)
-    public String userGroupList(Model model) throws Exception {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model) throws Exception {
         model.addAttribute("name", "liaoyongchao");
         return "userGroups/userGroupList";
     }

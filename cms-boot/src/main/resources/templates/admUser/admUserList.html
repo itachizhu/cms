@@ -1,6 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
+ <head>
+	<title>index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!--<link th:href="@{/	<link th:href="@{/bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet" />-->
+	 <script type="text/javascript"  th:src="@{/js/jquery/jquery-1.4.4.min.js}"></script>
+	 <script type="text/javascript"  th:src="@{/js/admUser/admUserList.js}"></script>
+</head>
+
 <body>
 	<div class="easyui-layout" data-options="fit:true">
 		<!--用户组列表展示start-->
@@ -50,7 +60,7 @@
 	<!--修改用户组窗口 start-->
 	<div id="modifyAdmUser" iconCls="icon-save" title="修改用户"></div>
 	<!--修改用户组窗口 end-->
-	<script type="text/javascript"  th:src="@{/js/admUser/admUserList.js}"></script>
+
 </body>
 
 </html>

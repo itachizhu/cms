@@ -1,4 +1,5 @@
 $(function () {
+    alert(1111);
     searAdmUserGroupObj = {
         search: function () {
             $('#admusergroup_list').datagrid('load', {
@@ -9,7 +10,7 @@ $(function () {
 
     //datagrid初始化
     $('#admusergroup_list').datagrid({
-        url: 'admusergroup/gridlist',
+        url: '/cms/admusergroup/gridlist',
         // queryParams: { roleid: 0 },
         iconCls: 'icon-edit',//图标
         width: 700,

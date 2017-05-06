@@ -17,7 +17,7 @@ public class UserGroupController {
 
     private UserGroupService userGroupService;
     @Autowired
-    private RoleService roleService;
+    private RoleService roleService; 
 
 
     @RequestMapping(value = "/userGroupList", method = RequestMethod.GET)

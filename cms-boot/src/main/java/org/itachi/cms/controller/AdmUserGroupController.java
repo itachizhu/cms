@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/group")
-public class UserGroupController {
-
+public class AdmUserGroupController {
+    @Autowired
     private UserGroupService userGroupService;
     @Autowired
-    private RoleService roleService; 
+    private RoleService roleService;
 
 
     @RequestMapping(value = "/userGroupList", method = RequestMethod.GET)

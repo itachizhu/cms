@@ -36,14 +36,14 @@
     <select id="countAdmUserGroup" resultType="int" parameterType="map">
 		select count(1) from t_admusergroup t where t.isdel = 1
         <if test="groupname !=null and groupname!=''">
-            and t.groupname= #{groupname}
+            and t.groupname LIKE CONCAT('%',#{groupname},'%')
         </if>
 	</select>
 
     <select id="findAdmUserGroup" resultMap="admusergroupResultMap" parameterType="map">
         SELECT id,groupname,des,createtime,updatetime,isdel from t_admusergroup t where t.isdel = 1
         <if test="groupname !=null and groupname!=''">
-            and t.groupname= #{groupname}
+            and t.groupname  LIKE CONCAT('%',#{groupname},'%')
         </if>
         limit #{pager.begin}, #{pager.rows}
     </select>

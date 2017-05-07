@@ -46,8 +46,8 @@ public class GlobalExceptionHandler {
 
     private HttpStatus handleThrowable(Map<String, Object> result, Throwable throwable) throws Exception {
         if (throwable != null && throwable.getCause() != null && throwable.getCause() != throwable) {
-            return ThrowableUtil.handleThrowable(result, throwable.getCause());
+            return ThrowableUtil.getInstance().handleException(result, throwable.getCause());
         }
-        return ThrowableUtil.handleCommonThrowable(result, throwable);
+        return ThrowableUtil.getInstance().handleException(result, throwable);
     }
 }

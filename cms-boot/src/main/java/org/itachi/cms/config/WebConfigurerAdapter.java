@@ -2,9 +2,9 @@ package org.itachi.cms.config;
 
 import org.itachi.cms.interceptor.AuthorizationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by itachi on 2017/4/23.

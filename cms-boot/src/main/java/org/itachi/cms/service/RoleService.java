@@ -21,7 +21,7 @@ public class RoleService {
         return roleRepository.loadMenu(userDTO);
     }
 
-    public List<RoleTreeDTO> listtree(AdmuserDTO userDTO, boolean bool) throws Exception{
+    public List<RoleTreeDTO> listtree(AdminUserDTO userDTO, boolean bool) throws Exception{
         return roleRepository.listtree(userDTO,bool);
     }
 

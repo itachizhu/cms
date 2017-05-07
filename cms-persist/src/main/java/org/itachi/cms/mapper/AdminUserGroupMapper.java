@@ -13,7 +13,7 @@ import java.util.Map;
  * Time: 13:18
  */
 @Mapper
-public interface AdmUserGroupMapper {
+public interface AdminUserGroupMapper {
     AdmusergroupDTO admusergroupById(long id);
 
     int delUserGroup(int[] ids);

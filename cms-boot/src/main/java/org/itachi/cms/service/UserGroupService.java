@@ -1,13 +1,10 @@
 package org.itachi.cms.service;
 
-import org.itachi.cms.dto.AdmuserDTO;
-import org.itachi.cms.dto.RoleTreeDTO;
 import org.itachi.cms.exception.ServiceException;
-import org.itachi.cms.repository.AdmUserGroupRepository;
+import org.itachi.cms.repository.AdminUserGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +14,9 @@ import java.util.Map;
 public class UserGroupService {
 
     @Autowired
-    private AdmUserGroupRepository admUserGroupRepository;
+    private AdminUserGroupRepository adminUserGroupRepository;
 
     public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws ServiceException {
-        return admUserGroupRepository.findAdmUserGroup(map);
+        return adminUserGroupRepository.findAdmUserGroup(map);
     }
 }

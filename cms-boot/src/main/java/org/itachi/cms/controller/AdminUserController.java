@@ -1,8 +1,8 @@
 package org.itachi.cms.controller;
 
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.PagerDTO;
-import org.itachi.cms.service.AdmUserService;
+import org.itachi.cms.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +19,10 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admuser")
-public class AdmUserController {
+public class AdminUserController {
 
     @Autowired
-    private AdmUserService admUserService;
+    private AdminUserService adminUserService;
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String admuserList() throws Exception {
@@ -42,9 +42,9 @@ public class AdmUserController {
                                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                         @RequestParam(value = "rows", required = false, defaultValue = "10") int rows) throws Exception {
 
-        AdmuserDTO userDTO = new AdmuserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setId(admuserid);
-        userDTO.setAccout(account);
+        userDTO.setAccount(account);
         userDTO.setMail(admusermail);
         userDTO.setPhone(admuserphone);
         userDTO.setName(admusername);
@@ -52,7 +52,7 @@ public class AdmUserController {
         Map<String, Object> map = new HashMap<>();
         map.put("userDTO",userDTO);
         map.put("pager",pager);
-        return admUserService.gridlist(map);
+        return adminUserService.gridlist(map);
     }
 
 }

@@ -2,8 +2,8 @@ package org.itachi.cms.action;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.itachi.cms.constant.Constants;
-import org.itachi.cms.dto.AdmuserDTO;
-import org.itachi.cms.repository.AdmUserRepository;
+import org.itachi.cms.dto.AdminUserDTO;
+import org.itachi.cms.repository.AdminUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
@@ -20,7 +20,7 @@ import java.util.Enumeration;
 @Path("/")
 public class LoginAction extends BaseAction {
     @Autowired
-    private AdmUserRepository admUserRepository;
+    private AdminUserRepository adminUserRepository;
 
 
     /**
@@ -70,10 +70,10 @@ public class LoginAction extends BaseAction {
     public String toLogin(@FormParam("accout") String accout, @FormParam("password") String password) throws Exception {
         // 获取用户名，密码，到service层验证，数据库取用户数据
 
-        AdmuserDTO amduserDTO = new AdmuserDTO();
-        amduserDTO.setAccout(accout);
+        AdminUserDTO amduserDTO = new AdminUserDTO();
+        amduserDTO.setAccount(accout);
         amduserDTO.setPassword(password);
-        AdmuserDTO userDTO = admUserRepository.getUserByAccout(amduserDTO);
+        AdminUserDTO userDTO = adminUserRepository.getUserByAccount(amduserDTO);
 
         if (userDTO == null) {
             return "账号或者密码错误";

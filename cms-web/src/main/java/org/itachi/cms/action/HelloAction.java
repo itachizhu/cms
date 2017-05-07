@@ -1,10 +1,10 @@
 package org.itachi.cms.action;
 
 import org.glassfish.jersey.server.mvc.Viewable;
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.TestDTO;
 import org.itachi.cms.dto.UserDTO;
-import org.itachi.cms.mapper.AdmUserGroupMapper;
+import org.itachi.cms.mapper.AdminUserGroupMapper;
 import org.itachi.cms.repository.TestRepository;
 import org.itachi.cms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class HelloAction extends BaseAction {
     private TestRepository testRepository;
 
     @Autowired
-    private AdmUserGroupMapper admUserGroupMapper;
+    private AdminUserGroupMapper adminUserGroupMapper;
 
     @GET
     @Path("/hello")
@@ -96,7 +96,7 @@ public class HelloAction extends BaseAction {
     @POST
     @Path("/finduser")
     @Produces(MediaType.APPLICATION_JSON)
-    public AdmuserDTO finduser(@BeanParam AdmuserDTO admuserDTO) throws Exception {
+    public AdminUserDTO finduser(@BeanParam AdminUserDTO admuserDTO) throws Exception {
         return admuserDTO;
     }
 }

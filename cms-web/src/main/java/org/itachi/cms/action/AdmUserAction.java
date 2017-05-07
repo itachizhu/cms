@@ -2,9 +2,9 @@ package org.itachi.cms.action;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.itachi.cms.dto.*;
-import org.itachi.cms.repository.AdmUserGroupCheckRepository;
-import org.itachi.cms.repository.AdmUserGroupRepository;
-import org.itachi.cms.repository.AdmUserRepository;
+import org.itachi.cms.repository.AdminUserGroupCheckRepository;
+import org.itachi.cms.repository.AdminUserGroupRepository;
+import org.itachi.cms.repository.AdminUserRepository;
 import org.itachi.cms.repository.UserGroupRelRepository;
 import org.itachi.cms.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +27,16 @@ public class AdmUserAction extends BaseAction {
 
 
     @Autowired
-    private AdmUserRepository admUserRepository;
+    private AdminUserRepository adminUserRepository;
 
     @Autowired
     private UserGroupRelRepository userGroupRelpository;
 
     @Autowired
-    private AdmUserGroupRepository admUserGroupRepository;
+    private AdminUserGroupRepository adminUserGroupRepository;
 
     @Autowired
-    private AdmUserGroupCheckRepository groupCheckRepository;
+    private AdminUserGroupCheckRepository groupCheckRepository;
 
     /**
      * 进入管理员列表页面
@@ -63,16 +63,16 @@ public class AdmUserAction extends BaseAction {
                                         @FormParam("page") int page,
                                         @FormParam("rows") int rows) throws Exception {
 
-        AdmuserDTO userDTO = new AdmuserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setId(admuserid);
-        userDTO.setAccout(account);
+        userDTO.setAccount(account);
         userDTO.setMail(admusermail);
         userDTO.setPhone(admuserphone);
         userDTO.setName(admusername);
         PagerDTO pager = new PagerDTO(page, rows);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("rows", admUserRepository.getUserList(userDTO, pager));
-        map.put("total", admUserRepository.getUserCount(userDTO));
+        map.put("rows", adminUserRepository.getUserList(userDTO, pager));
+        map.put("total", adminUserRepository.getUserCount(userDTO));
         return map;
     }
 
@@ -146,9 +146,9 @@ public class AdmUserAction extends BaseAction {
         if (!StringUtil.MinSize(ids)) {
             return "组信息请至少选择一个";
         }
-        AdmuserDTO admuserDTO = new AdmuserDTO();
-        admuserDTO.setAccout(account);
-        int count = admUserRepository.getUserCount(admuserDTO);
+        AdminUserDTO admuserDTO = new AdminUserDTO();
+        admuserDTO.setAccount(account);
+        int count = adminUserRepository.getUserCount(admuserDTO);
         if (count > 0) {
             return "添加失败,账号已经存在!";
         } else {
@@ -158,8 +158,8 @@ public class AdmUserAction extends BaseAction {
             admuserDTO.setMail(mail);
             admuserDTO.setIsdel(1);
             admuserDTO.setDepartment(department);
-            admUserRepository.addUser(admuserDTO);
-            AdmuserDTO admuser = admUserRepository.getUser(account);
+            adminUserRepository.addUser(admuserDTO);
+            AdminUserDTO admuser = adminUserRepository.getUser(account);
             int[] gids;
             try {
                 gids = StringUtil.strArrToIntArr(ids);
@@ -193,7 +193,7 @@ public class AdmUserAction extends BaseAction {
     @Path("/tomodifyadmuser")
     @Produces(MediaType.TEXT_HTML)
     public Viewable tomodifyadmuser(@QueryParam("admUserId") long id) throws Exception {
-        AdmuserDTO admuserDTO = admUserRepository.getUserById(id);
+        AdminUserDTO admuserDTO = adminUserRepository.getUserById(id);
         request.setAttribute("admuser", admuserDTO);
         return new Viewable("/admUser/modifyAdmUser");
     }
@@ -263,16 +263,16 @@ public class AdmUserAction extends BaseAction {
                 return "密码长度不能超过20个字符";
             }
         }
-        AdmuserDTO admuserDTO = new AdmuserDTO();
+        AdminUserDTO admuserDTO = new AdminUserDTO();
         admuserDTO.setId(userId);
-        admuserDTO.setAccout(account);
+        admuserDTO.setAccount(account);
         admuserDTO.setPassword(password);
         admuserDTO.setName(name);
         admuserDTO.setPhone(phone);
         admuserDTO.setMail(mail);
         admuserDTO.setIsdel(1);
         admuserDTO.setDepartment(department);
-        int code = admUserRepository.updateUser(admuserDTO);
+        int code = adminUserRepository.updateUser(admuserDTO);
         if (code < 1) {
             return "修改失败";
         } else {
@@ -311,7 +311,7 @@ public class AdmUserAction extends BaseAction {
     public String delete(@FormParam("userids") String userids) throws Exception {
 
         int[] uids = StringUtil.strArrToIntArr(userids);
-        String result = admUserRepository.deleteUserDTO(uids);
+        String result = adminUserRepository.deleteUserDTO(uids);
         if (result != null) {
             return result;
         }
@@ -337,7 +337,7 @@ public class AdmUserAction extends BaseAction {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pager", pager);
         map.put("groupName", groupName);
-        Map<String, Object> UserGroupMap = admUserGroupRepository.findAdmUserGroup(map);
+        Map<String, Object> UserGroupMap = adminUserGroupRepository.findAdmUserGroup(map);
         List<AdmusergroupDTO> usergroupList = (List<AdmusergroupDTO>) UserGroupMap.get("rows");
         Map<String, Boolean> bolmap = groupCheckRepository.getAllCheckGroup(admUserId);
         List<AdmusergroupcheckDTO> groupChecks = new ArrayList<AdmusergroupcheckDTO>();

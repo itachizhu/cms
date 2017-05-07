@@ -1,6 +1,8 @@
 package org.itachi.cms.util;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.Locale;
 
 /**
@@ -28,9 +30,9 @@ public final class LocaleUtil {
                 }
             }
         } catch (Exception e) {
-
-
         }
         return Locale.getDefault();
     }
+
+
 }

@@ -1,8 +1,5 @@
 package org.itachi.cms.controller;
 
-import org.itachi.cms.dto.AdminUserDTO;
-import org.itachi.cms.mapper.AdminMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/test")
 public class HelloController {
-    @Autowired
-    private AdminMapper adminMapper;
-
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    @ResponseBody
-    public AdminUserDTO hello() throws Exception {
-        return adminMapper.getAdminUser(1L);
-        // return "Hello World!";
-    }
 
     @RequestMapping(value = "/myerror", method = RequestMethod.GET)
     @ResponseBody

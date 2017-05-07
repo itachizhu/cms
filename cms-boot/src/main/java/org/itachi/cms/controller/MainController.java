@@ -1,7 +1,6 @@
 package org.itachi.cms.controller;
 
-import org.itachi.cms.constant.Constants;
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
 import org.itachi.cms.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class MainController  {
     @RequestMapping(value = "loadMenu", method = RequestMethod.POST)
     @ResponseBody
     public List<RoleTreeDTO> loadMenu() throws Exception {
-        AdmuserDTO userDTO = new AdmuserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setId(1L);
         List<RoleTreeDTO> list = roleService.loadMenu(userDTO);
         return list;

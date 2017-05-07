@@ -1,6 +1,6 @@
 package org.itachi.cms.repository;
 
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.RoleDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
 import org.itachi.cms.mapper.RoleMapper;
@@ -55,8 +55,8 @@ public class RoleRepository {
         return roleMapper.findRole(id);
     }
 
-    public List<RoleTreeDTO> loadMenu(AdmuserDTO admuserDTO) throws Exception {
-        List<RoleTreeDTO> roleList = new ArrayList<RoleTreeDTO>();
+    public List<RoleTreeDTO> loadMenu(AdminUserDTO admuserDTO) throws Exception {
+        List<RoleTreeDTO> roleList = new ArrayList<>();
         if (this.isAdminUser(admuserDTO)) {
             roleList = roleMapper.getAdminRole();
             if (roleList.isEmpty()) {
@@ -69,7 +69,7 @@ public class RoleRepository {
             }
 
         }
-        Map<String, Boolean> map = new HashMap<String, Boolean>();
+        Map<String, Boolean> map = new HashMap<>();
         for (RoleTreeDTO roleDTO : roleList) {
             map.put(roleDTO.getpId() + "", true);
         }
@@ -93,7 +93,7 @@ public class RoleRepository {
     }
 
 
-    public Boolean isAdminUser(AdmuserDTO admuserDTO) throws Exception {
+    public Boolean isAdminUser(AdminUserDTO admuserDTO) throws Exception {
         boolean flag = false;
         List<Long> list = roleMapper.isAdmin(admuserDTO);
         if (list.isEmpty()) {
@@ -136,7 +136,7 @@ public class RoleRepository {
         return result;
     }
 
-    public List<RoleTreeDTO> listtree(AdmuserDTO userDTO, boolean bool) throws Exception {
+    public List<RoleTreeDTO> listtree(AdminUserDTO userDTO, boolean bool) throws Exception {
 
         List<RoleTreeDTO> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<String, Object>();

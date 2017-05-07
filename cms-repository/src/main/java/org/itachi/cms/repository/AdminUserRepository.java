@@ -1,8 +1,8 @@
 package org.itachi.cms.repository;
 
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.PagerDTO;
-import org.itachi.cms.mapper.AdmUserMapper;
+import org.itachi.cms.mapper.AdminUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,59 +20,59 @@ import java.util.Map;
  */
 @Component
 @Transactional(propagation= Propagation.SUPPORTS, readOnly = true)
-public class AdmUserRepository {
+public class AdminUserRepository {
     @Autowired
-    private AdmUserMapper admUserMapper;
+    private AdminUserMapper adminUserMapper;
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public String deleteUserDTO(int[] uids){
-        int delUser = admUserMapper.delUser(uids);
+        int delUser = adminUserMapper.delUser(uids);
         if (delUser < 1) {
             return "删除管理员基本信息失败";
         }
 
-        int delRel = admUserMapper.delRel(uids);
+        int delRel = adminUserMapper.delRel(uids);
         if (delRel < 1) {
             return "删除管理员和组关系失败";
         }
         return null;
     }
 
-    public AdmuserDTO getUserById(long id) throws Exception {
-        return admUserMapper.getUserById(id);
+    public AdminUserDTO getUserById(long id) throws Exception {
+        return adminUserMapper.getUserById(id);
     }
 
-    public AdmuserDTO getUser(String accout) throws Exception {
-        return admUserMapper.getUser(accout);
+    public AdminUserDTO getUser(String accout) throws Exception {
+        return adminUserMapper.getUser(accout);
     }
 
-    public AdmuserDTO getUserByAccout(AdmuserDTO amduserDTO) throws Exception {
-        return admUserMapper.findUser(amduserDTO);
+    public AdminUserDTO getUserByAccount(AdminUserDTO amduserDTO) throws Exception {
+        return adminUserMapper.findUser(amduserDTO);
     }
 
-    public int getUserCount(AdmuserDTO userDTO){
-        return admUserMapper.getUserCount(userDTO);
+    public int getUserCount(AdminUserDTO userDTO){
+        return adminUserMapper.getUserCount(userDTO);
     }
 
-    public List<AdmuserDTO> getUserList(AdmuserDTO userDTO, PagerDTO pager){
+    public List<AdminUserDTO> getUserList(AdminUserDTO userDTO, PagerDTO pager){
 
         Map<String, Object>map=new HashMap<String, Object>();
         map.put("admUser", userDTO);
         map.put("pager", pager);
-        List<AdmuserDTO> userList = admUserMapper.getUserList(map);
+        List<AdminUserDTO> userList = adminUserMapper.getUserList(map);
 
 
         return userList;
     }
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
-    public int addUser(AdmuserDTO userDTO){
-        return admUserMapper.addUser(userDTO);
+    public int addUser(AdminUserDTO userDTO){
+        return adminUserMapper.addUser(userDTO);
     }
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
-    public int updateUser(AdmuserDTO userDTO){
-        return admUserMapper.updateUser(userDTO);
+    public int updateUser(AdminUserDTO userDTO){
+        return adminUserMapper.updateUser(userDTO);
     }
 
 }

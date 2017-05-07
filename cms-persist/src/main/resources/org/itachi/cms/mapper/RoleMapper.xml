@@ -49,7 +49,7 @@
     </select>
 
 
-    <select id="isAdmin" resultType="long" parameterType="admuserDTO">
+    <select id="isAdmin" resultType="long" parameterType="adminUserDTO">
         SELECT groupid from t_user_group_rel t where t.userid = #{id} and t.isdel =1
     </select>
 
@@ -59,7 +59,7 @@
         SELECT t.id, pid, name, roleurl , ismenu, des from t_role t where t.id != 0 and t.ismenu = 0
     </select>
 
-    <select id="getRoleTree" resultMap="roleTreeResultMap" parameterType="admuserDTO">
+    <select id="getRoleTree" resultMap="roleTreeResultMap" parameterType="adminUserDTO">
         SELECT DISTINCT t.id, pid, name, roleurl , ismenu, des from
         t_role t,t_user_group_rel ug,t_group_role_rel gr
         where t.id != 0 and t.ismenu = 0 and t.id = gr.roleid and ug.userid=#{id}

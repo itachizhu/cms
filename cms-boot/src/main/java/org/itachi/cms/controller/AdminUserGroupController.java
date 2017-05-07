@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admusergroup")
-public class AdmUserGroupController {
+public class AdminUserGroupController {
     @Autowired
     private UserGroupService userGroupService;
     @Autowired

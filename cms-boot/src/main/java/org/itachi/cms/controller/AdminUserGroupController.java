@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admusergroup")
-public class AdmUserGroupController extends BaseController{
+public class AdminUserGroupController extends BaseController{
     @Autowired
     private UserGroupService userGroupService;
     @Autowired

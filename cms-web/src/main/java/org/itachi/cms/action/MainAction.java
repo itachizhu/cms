@@ -2,7 +2,7 @@ package org.itachi.cms.action;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.itachi.cms.constant.Constants;
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
 import org.itachi.cms.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class MainAction extends BaseAction {
     @Path("header")
     @Produces(MediaType.TEXT_HTML)
    public Viewable header() throws Exception {
-        AdmuserDTO userDTO = (AdmuserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
+        AdminUserDTO userDTO = (AdminUserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
         request.setAttribute("userDTO", userDTO);
         return new Viewable("/common/header");
     }
@@ -79,7 +79,7 @@ public class MainAction extends BaseAction {
     @Path("loadMenu")
     @Produces(MediaType.APPLICATION_JSON)
     public List<RoleTreeDTO> loadMenu() throws Exception {
-        AdmuserDTO userDTO = (AdmuserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
+        AdminUserDTO userDTO = (AdminUserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
         return roleRepository.loadMenu(userDTO);
     }
 

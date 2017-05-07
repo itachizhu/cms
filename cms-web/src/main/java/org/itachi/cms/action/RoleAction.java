@@ -2,7 +2,7 @@ package org.itachi.cms.action;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.itachi.cms.constant.Constants;
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.PagerDTO;
 import org.itachi.cms.dto.RoleDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
@@ -66,12 +66,12 @@ public class RoleAction extends BaseAction {
     @Consumes({"application/x-www-form-urlencoded", MediaType.APPLICATION_JSON})
     public List<RoleTreeDTO> listtree(@FormParam("id") Long id) throws Exception {
         List<RoleTreeDTO> list =null;
-        AdmuserDTO userDTO =null;
+        AdminUserDTO userDTO =null;
         if (id==null) {
-             userDTO = (AdmuserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
+             userDTO = (AdminUserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
              list = roleRepository.listtree(userDTO,true);
         }else {
-            userDTO=new AdmuserDTO();
+            userDTO=new AdminUserDTO();
             userDTO.setId(id);
             list = roleRepository.listtree(userDTO,true);
         }

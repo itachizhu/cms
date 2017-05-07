@@ -15,6 +15,14 @@ public abstract class CmsError {
     }
 
     public enum Error implements ErrorType {
+
+        ILLEGAL_REQUEST(101, "非法请求"),
+        UNSUPPORT_MEDIATYPE(102, "不支持的数据类型"),
+        REMOTE_SERVICE_ERROR(103, "远程服务错误"),
+        PARAMETER_INVALID(104, "参数错误"),
+        ACCOUNT_INVALID(105, "非法的用户名"),
+        PASSWORD_INVALID(106, "非法的密码"),
+        USER_NOT_EXISTS(107, "用户名或密码错误"),
         UNKNOWN(999, "未知错误");
 
         private final int code;

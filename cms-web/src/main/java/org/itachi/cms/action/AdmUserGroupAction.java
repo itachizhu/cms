@@ -5,7 +5,7 @@ import org.itachi.cms.dto.AdmusergroupDTO;
 import org.itachi.cms.dto.GroupRoleRelDTO;
 import org.itachi.cms.dto.PagerDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
-import org.itachi.cms.repository.AdmUserGroupRepository;
+import org.itachi.cms.repository.AdminUserGroupRepository;
 import org.itachi.cms.repository.GroupRoleRelRepository;
 import org.itachi.cms.repository.RoleRepository;
 import org.itachi.cms.util.StringUtil;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class AdmUserGroupAction extends BaseAction {
 
     @Autowired
-    private AdmUserGroupRepository admUserGroupRepository;
+    private AdminUserGroupRepository adminUserGroupRepository;
     @Autowired
     private GroupRoleRelRepository groupRoleRelRepository;
     @Autowired
@@ -59,7 +59,7 @@ public class AdmUserGroupAction extends BaseAction {
         map.put("groupname", groupName);
 
 
-        Map<String, Object> result = admUserGroupRepository.findAdmUserGroup(map);
+        Map<String, Object> result = adminUserGroupRepository.findAdmUserGroup(map);
 
         return result;
     }
@@ -108,7 +108,7 @@ public class AdmUserGroupAction extends BaseAction {
         usergroupDTO.setGroupname(groupname);
         usergroupDTO.setDes(describe);
         usergroupDTO.setIsdel(1);
-        int num = admUserGroupRepository.addUserGroup(usergroupDTO);
+        int num = adminUserGroupRepository.addUserGroup(usergroupDTO);
 
         if (num < 1) {
             return "添加失败";
@@ -119,7 +119,7 @@ public class AdmUserGroupAction extends BaseAction {
         } catch (Exception e) {
             return "ids不是数字,添加管理员组失败。";
         }
-        long newid = admUserGroupRepository.findnewUGroupDTO(usergroupDTO);
+        long newid = adminUserGroupRepository.findnewUGroupDTO(usergroupDTO);
 
         List<GroupRoleRelDTO> list = new ArrayList<GroupRoleRelDTO>();
         for (int i = 0; i < gids.length; i++) {
@@ -149,7 +149,7 @@ public class AdmUserGroupAction extends BaseAction {
     @Produces(MediaType.TEXT_HTML)
     public Viewable tomodify(@QueryParam("admusergroupid") long id) throws Exception {
 
-        AdmusergroupDTO admusergroupDTO = admUserGroupRepository.admusergroupById(id);
+        AdmusergroupDTO admusergroupDTO = adminUserGroupRepository.admusergroupById(id);
         request.setAttribute("admusergroup", admusergroupDTO);
 
         return new Viewable("/admusergroup/modifyAdmusergroup");
@@ -190,7 +190,7 @@ public class AdmUserGroupAction extends BaseAction {
         usergroupDTO.setGroupname(groupname);
         usergroupDTO.setDes(describe);
         usergroupDTO.setIsdel(1);
-        int num = admUserGroupRepository.updateUserGroup(usergroupDTO);
+        int num = adminUserGroupRepository.updateUserGroup(usergroupDTO);
         if (num < 1) {
             return "修改失败";
         }
@@ -236,7 +236,7 @@ public class AdmUserGroupAction extends BaseAction {
             return "ids不是数字,删除管理员组失败。";
         }
         int num=0;
-        num = admUserGroupRepository.delUserGroup(gids);
+        num = adminUserGroupRepository.delUserGroup(gids);
         if (num < 1) {
             return "删除失败";
         }

@@ -1,7 +1,7 @@
 package org.itachi.cms.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.itachi.cms.dto.AdmuserDTO;
+import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.RoleDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
 
@@ -16,9 +16,9 @@ import java.util.Map;
  */
 @Mapper
 public interface RoleMapper {
-    List<Long> isAdmin(AdmuserDTO admuserDTO);
+    List<Long> isAdmin(AdminUserDTO admuserDTO);
     List<RoleTreeDTO> getAdminRole();
-    List<RoleTreeDTO> getRoleTree(AdmuserDTO admuserDTO);
+    List<RoleTreeDTO> getRoleTree(AdminUserDTO admuserDTO);
     List<RoleDTO> getRoles(Map<String, Object> map);
     int countRole(Map<String, Object> map);
     int countRolesByPid(int[] roleids);

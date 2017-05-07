@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.itachi.cms.mapper.AdmUserMapper">
+<mapper namespace="org.itachi.cms.mapper.AdminUserMapper">
 
-    <resultMap id="admUserResultMap" type="admuserDTO">
+    <resultMap id="admUserResultMap" type="adminUserDTO">
         <id property="id" column="id"/>
-        <result property="accout" column="accout" javaType="string"/>
+        <result property="account" column="accout" javaType="string"/>
         <result property="mail" column="mail" javaType="string"/>
         <result property="name" column="name" javaType="string"/>
         <result property="phone" column="phone" javaType="string"/>
         <result property="department" column="department" javaType="string"/>
         <result property="password" column="password" javaType="string"/>
-        <result property="createtime" column="createtime" javaType="DATE"/>
-        <result property="updatetime" column="updatetime" javaType="DATE"/>
+        <result property="createTime" column="createtime" javaType="DATE"/>
+        <result property="updateTime" column="updatetime" javaType="DATE"/>
         <result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -37,13 +37,13 @@
         <if test="phone !=null and phone!=''">
             AND t.phone=#{phone}
         </if>
-        <if test="accout !=null and accout!=''">
-            AND t.accout=#{accout}
+        <if test="account !=null and account!=''">
+            AND t.accout=#{account}
         </if>
     </sql>
 
 
-    <select id="getUserCount" resultType="int" parameterType="admuserDTO">
+    <select id="getUserCount" resultType="int" parameterType="adminUserDTO">
         <include refid="count"/>
         <include refid="condition"/>
     </select>
@@ -73,7 +73,7 @@
 
     <select id="getUser" resultMap="admUserResultMap" parameterType="string">
         <include refid="admUser"/>
-        where t.accout = #{accout} and t.isdel =1
+        where t.accout = #{account} and t.isdel =1
     </select>
 
     <select id="getUserById" resultMap="admUserResultMap" parameterType="long">
@@ -81,9 +81,9 @@
         where t.id = #{id}
     </select>
 
-    <select id="findUser" resultMap="admUserResultMap" parameterType="admuserDTO">
+    <select id="findUser" resultMap="admUserResultMap" parameterType="adminUserDTO">
         <include refid="admUser"/>
-        where t.accout = #{accout} and t.password = password(#{password}) and t.isdel =1
+        where t.accout = #{account} and t.password = password(#{password}) and t.isdel =1
     </select>
 
     <update id="delUser" parameterType="list">
@@ -100,10 +100,10 @@
         </foreach>
     </update>
 
-    <update id="updateUser" parameterType="admuserDTO">
+    <update id="updateUser" parameterType="adminUserDTO">
         update t_admuser  SET
-            <if test="accout !=null and accout!=''">
-                accout= #{accout},
+            <if test="account !=null and account!=''">
+                accout= #{account},
             </if>
             <if test="name !=null and name!=''">
                 name= #{name},
@@ -127,11 +127,11 @@
 
     </update>
 
-    <insert id="addUser" parameterType="admuserDTO">
+    <insert id="addUser" parameterType="adminUserDTO">
         INSERT into t_admuser
             (accout,name,mail,phone,department,password,createtime,updatetime,isdel)
         VALUES (
-            #{accout},
+            #{account},
             #{name},
             #{mail},
             #{phone},

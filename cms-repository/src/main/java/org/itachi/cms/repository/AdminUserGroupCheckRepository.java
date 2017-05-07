@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Component
 @Transactional(propagation= Propagation.SUPPORTS, readOnly = true)
-public class AdmUserGroupCheckRepository {
+public class AdminUserGroupCheckRepository {
     @Autowired
     private AdmusergroupcheckMapper admusergroupcheckMapper;
 

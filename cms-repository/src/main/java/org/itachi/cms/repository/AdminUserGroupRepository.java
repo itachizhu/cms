@@ -2,7 +2,7 @@ package org.itachi.cms.repository;
 
 import org.itachi.cms.dto.AdmusergroupDTO;
 import org.itachi.cms.exception.ServiceException;
-import org.itachi.cms.mapper.AdmUserGroupMapper;
+import org.itachi.cms.mapper.AdminUserGroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,36 +20,36 @@ import java.util.Map;
  */
 @Component
 @Transactional(propagation= Propagation.SUPPORTS, readOnly = true)
-public class AdmUserGroupRepository {
+public class AdminUserGroupRepository {
     @Autowired
-    private AdmUserGroupMapper admUserGroupMapper;
+    private AdminUserGroupMapper adminUserGroupMapper;
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int delUserGroup(int[] ids){
-        return admUserGroupMapper.delUserGroup(ids);
+        return adminUserGroupMapper.delUserGroup(ids);
     }
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int updateUserGroup(AdmusergroupDTO usergroupDTO) throws Exception {
-        return admUserGroupMapper.updateUserGroup(usergroupDTO);
+        return adminUserGroupMapper.updateUserGroup(usergroupDTO);
     }
 
     public long findnewUGroupDTO(AdmusergroupDTO usergroupDTO) throws Exception {
-        return admUserGroupMapper.findnewUGroupDTO(usergroupDTO);
+        return adminUserGroupMapper.findnewUGroupDTO(usergroupDTO);
     }
 
     @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addUserGroup(AdmusergroupDTO usergroupDTO) throws Exception {
-        return admUserGroupMapper.addUserGroup(usergroupDTO);
+        return adminUserGroupMapper.addUserGroup(usergroupDTO);
     }
 
     public AdmusergroupDTO admusergroupById(long id) throws Exception {
-        return admUserGroupMapper.admusergroupById(id);
+        return adminUserGroupMapper.admusergroupById(id);
     }
 
     public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws ServiceException {
-        int count = admUserGroupMapper.countAdmUserGroup(map);
-        List<AdmusergroupDTO> admusergroupList = admUserGroupMapper.findAdmUserGroup(map);
+        int count = adminUserGroupMapper.countAdmUserGroup(map);
+        List<AdmusergroupDTO> admusergroupList = adminUserGroupMapper.findAdmUserGroup(map);
 
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("rows", admusergroupList);

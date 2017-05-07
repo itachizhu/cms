@@ -24,16 +24,21 @@ public class AdmUserGroupRepository {
     @Autowired
     private AdmUserGroupMapper admUserGroupMapper;
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int delUserGroup(int[] ids){
         return admUserGroupMapper.delUserGroup(ids);
     }
+
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int updateUserGroup(AdmusergroupDTO usergroupDTO) throws Exception {
         return admUserGroupMapper.updateUserGroup(usergroupDTO);
     }
+
     public long findnewUGroupDTO(AdmusergroupDTO usergroupDTO) throws Exception {
         return admUserGroupMapper.findnewUGroupDTO(usergroupDTO);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addUserGroup(AdmusergroupDTO usergroupDTO) throws Exception {
         return admUserGroupMapper.addUserGroup(usergroupDTO);
     }
@@ -43,8 +48,6 @@ public class AdmUserGroupRepository {
     }
 
     public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws ServiceException {
-
-
         int count = admUserGroupMapper.countAdmUserGroup(map);
         List<AdmusergroupDTO> admusergroupList = admUserGroupMapper.findAdmUserGroup(map);
 

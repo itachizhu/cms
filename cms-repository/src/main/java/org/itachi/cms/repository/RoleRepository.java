@@ -26,11 +26,12 @@ public class RoleRepository {
     @Autowired
     private RoleMapper roleMapper;
 
-
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addRoleDTO(RoleDTO roleDTO) {
         return roleMapper.addRoleDTO(roleDTO);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public String deleteRoleDTO(int[] roleids) {
         int count = roleMapper.countRolesByPid(roleids);
         if (count > 0) {
@@ -45,6 +46,7 @@ public class RoleRepository {
 
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int updateRoleDTO(RoleDTO roleDTO) {
         return roleMapper.updateRoleDTO(roleDTO);
     }
@@ -85,10 +87,7 @@ public class RoleRepository {
                 String click = "click: addTab('" + roleList.get(i).getName() + "','" + roleList.get(i).getRoleurl() + "')";
                 roleList.get(i).setClick(click);
             }
-
-
         }
-
 
         return roleList;
     }

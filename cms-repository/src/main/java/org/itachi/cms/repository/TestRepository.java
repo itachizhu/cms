@@ -1,9 +1,7 @@
 package org.itachi.cms.repository;
 
 import org.itachi.cms.dto.TestDTO;
-import org.itachi.cms.dto.UserDTO;
 import org.itachi.cms.mapper.TestMapper;
-import org.itachi.cms.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,10 +25,12 @@ public class TestRepository {
         return testMapper.getTest();
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public void insertTest(TestDTO testDTO) throws Exception {
         testMapper.insertTest(testDTO);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int deleteRoleDTO(int[] ids){
         return testMapper.deleteTestDTO(ids);
     }

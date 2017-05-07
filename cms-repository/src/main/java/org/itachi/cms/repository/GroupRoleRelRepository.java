@@ -21,16 +21,21 @@ public class GroupRoleRelRepository {
     @Autowired
     private GroupRoleRelMapper groupRoleRelMapper;
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addUserGroupRels(List<GroupRoleRelDTO> list) throws Exception {
         return groupRoleRelMapper.addgroupRoleRel(list);
     }
+
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int delGroupRoleRel(long id) throws Exception {
         return groupRoleRelMapper.delGroupRoleRel(id);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int delGRoleRelList(int[] ids){
         return groupRoleRelMapper.delGRoleRelList(ids);
     }
+
     public List<Long> findroleid(long id){
         return groupRoleRelMapper.findroleid(id);
     }

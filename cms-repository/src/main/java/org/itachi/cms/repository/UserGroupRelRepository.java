@@ -21,12 +21,13 @@ public class UserGroupRelRepository {
     @Autowired
     private UserGroupRelMapper userGroupRelMapper;
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addUserGroupRels(List<UserGroupRelDTO> list) throws Exception {
         return userGroupRelMapper.addUserGroupRels(list);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int updateUserGroupRel(long id){
-
         return userGroupRelMapper.updateUserGroupRel(id);
     }
 }

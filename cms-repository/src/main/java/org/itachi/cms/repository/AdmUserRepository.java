@@ -24,6 +24,7 @@ public class AdmUserRepository {
     @Autowired
     private AdmUserMapper admUserMapper;
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public String deleteUserDTO(int[] uids){
         int delUser = admUserMapper.delUser(uids);
         if (delUser < 1) {
@@ -52,6 +53,7 @@ public class AdmUserRepository {
     public int getUserCount(AdmuserDTO userDTO){
         return admUserMapper.getUserCount(userDTO);
     }
+
     public List<AdmuserDTO> getUserList(AdmuserDTO userDTO, PagerDTO pager){
 
         Map<String, Object>map=new HashMap<String, Object>();
@@ -62,10 +64,13 @@ public class AdmUserRepository {
 
         return userList;
     }
+
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int addUser(AdmuserDTO userDTO){
         return admUserMapper.addUser(userDTO);
     }
 
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = false)
     public int updateUser(AdmuserDTO userDTO){
         return admUserMapper.updateUser(userDTO);
     }

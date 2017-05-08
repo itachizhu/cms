@@ -1,5 +1,6 @@
 package org.itachi.cms.controller;
 
+import org.itachi.cms.constant.Constants;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.RoleTreeDTO;
 import org.itachi.cms.service.RoleService;
@@ -18,13 +19,15 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-public class MainController  {
+public class MainController  extends BaseController {
 
     @Autowired
     private RoleService roleService;
 
     @RequestMapping(value = "header", method = RequestMethod.GET)
     public String header(Model model) throws Exception {
+        AdminUserDTO userDTO = (AdminUserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
+        model.addAttribute("user",userDTO);
         return "common/header";
     }
 
@@ -40,7 +43,6 @@ public class MainController  {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(Model model) throws Exception {
-        model.addAttribute("aaa");
         return "/index";
     }
 
@@ -51,8 +53,7 @@ public class MainController  {
     @RequestMapping(value = "loadMenu", method = RequestMethod.POST)
     @ResponseBody
     public List<RoleTreeDTO> loadMenu() throws Exception {
-        AdminUserDTO userDTO = new AdminUserDTO();
-        userDTO.setId(1L);
+        AdminUserDTO userDTO = (AdminUserDTO) (request.getSession().getAttribute(Constants.SESSION_KEY));
         List<RoleTreeDTO> list = roleService.loadMenu(userDTO);
         return list;
     }

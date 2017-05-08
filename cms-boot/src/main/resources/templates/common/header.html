@@ -1,3 +1,4 @@
+
 <style type="text/css">
     .fr {
         float: right;
@@ -14,9 +15,10 @@
         background-color: #E0ECFF;
     }
 </style>
+
 <div class="content">
     <div class="fr">
-        <h2 style="margin-right:10px">欢迎：</h2>
+        <h2 style="margin-right:10px" th:text="'欢迎： ' + ${user.name} + '!'"></h2>
         <a th:href="@{/loginout}">退出</a>
     </div>
     <div class="main">

@@ -24,6 +24,18 @@ function submitModifyRoleForm() {
             $('#modifyrole').window('close')
             $.messager.alert('操作提示', result, 'info');
         }
+    }).error(function (XMLHttpRequest) {
+        if (XMLHttpRequest.status == 500) {
+            $("#errmsg").html("服务器异常，请联系管理员！");
+        } else if (XMLHttpRequest.status == 404) {
+            $("#errmsg").html("请求地址不存在，请联系管理员！");
+        } else {
+            if (XMLHttpRequest.responseJSON && XMLHttpRequest.responseJSON.message) {
+                debugger
+                console.log(XMLHttpRequest.responseJSON.code);
+                $.messager.alert('操作提示', XMLHttpRequest.responseJSON.message, 'warning');
+            }
+        }
     });
 }
 

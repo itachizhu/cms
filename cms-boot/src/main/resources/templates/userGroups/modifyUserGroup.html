@@ -6,18 +6,18 @@
     <!--基础信息窗口 start-->
     <div data-options="region:'west',split:true" border="false" style="width:350px;padding:10px 10px 20px 50px">
         <form id="modifyamdusergroup" method="post">
-            <input type="hidden" id="admgroupuserid" name="admgroupuserid"/>
+            <input type="hidden" th:value="${admusergroup.id}" name="admgroupuserid"/>
 
             <table cellpadding="5">
                 <tr>
                     <td>管理员组名称:</td>
-                    <td><input class="easyui-textbox"  type="text" id="ag_m_name" name="ag_m_name"
+                    <td><input class="easyui-textbox"  type="text" th:value="${admusergroup.groupname}" name="ag_m_name"
                                required="true" missingMessage="不能为空"/>
                     </td>
                 </tr>
                 <tr>
                     <td>描述信息:</td>
-                    <td><input class="easyui-textbox" style="height:60px" data-options="multiline:true" id="ag_m_describe"
+                    <td><input class="easyui-textbox" style="height:60px" data-options="multiline:true" th:value="${admusergroup.des}"
                                name="ag_m_describe" required="true" missingMessage="不能为空"/>
                     </td>
                 </tr>
@@ -46,9 +46,6 @@
 
 <script type="text/javascript" th:inline="javascript">
     var admusergroup=[[${admusergroup}]];
-    $("#admgroupuserid").val(admusergroup.id);
-    $("#ag_m_name").val(admusergroup.groupname);
-    $("#ag_m_describe").val(admusergroup.des);
 </script>
 </body>
 </html>

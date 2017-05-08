@@ -22,8 +22,8 @@ public class UserGroupService {
     }
 
 
-    public void delUserGroup(int[] ids) throws ServiceException{
-        admUserGroupRepository.delUserGroup(ids);
+    public int delUserGroup(int[] ids) throws ServiceException{
+       return admUserGroupRepository.delUserGroup(ids);
     }
 
 
@@ -37,5 +37,9 @@ public class UserGroupService {
 
     public AdmusergroupDTO admusergroupById(long id) throws Exception {
         return admUserGroupRepository.admusergroupById(id);
+    }
+
+    public int updateUserGroup(AdmusergroupDTO usergroupDTO) throws Exception{
+        return admUserGroupRepository.updateUserGroup(usergroupDTO);
     }
 }

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,11 +71,13 @@ public class AdminUserGroupController extends BaseController{
      */
     @RequestMapping(value = "/addadmusergroup", method = RequestMethod.POST)
     @ResponseBody
-    public String addadmusergroup(@RequestParam("groupname") String groupname,
+    public String addadmusergroup(@Size(min = 1,max = 20, message = "{userGroup.name.size}")
+                                  @RequestParam("groupname") String groupname,
+                                  @Size(min = 1,max = 50, message = "{userGroup.desc.size}")
                                   @RequestParam("describe") String describe,
-                                  @RequestParam("ids") String ids) throws Exception {
+                                  @NotNull@RequestParam("ids") String ids) throws Exception {
 
-        if (!StringUtil.isNotNull(groupname)) {
+       /* if (!StringUtil.isNotNull(groupname)) {
             return "管理员组名称不能为空";
         }
 
@@ -89,7 +94,7 @@ public class AdminUserGroupController extends BaseController{
         }
         if (!StringUtil.MinSize(ids)) {
             return "权限请至少选择一个";
-        }
+        }*/
         AdmusergroupDTO usergroupDTO = new AdmusergroupDTO();
         usergroupDTO.setGroupname(groupname);
         usergroupDTO.setDes(describe);
@@ -138,12 +143,79 @@ public class AdminUserGroupController extends BaseController{
         return "userGroups/modifyUserGroup";
     }
 
+
+    /**
+     * 修改管理员组
+     */
+    @RequestMapping(value = "/modifyadmusergroup", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyadmusergroup(@RequestParam("id") long id,
+                                     @Size(min = 1,max = 20, message = "{userGroup.name.size}")
+                                     @RequestParam("groupname") String groupname,
+                                     @Size(min = 1,max = 50, message = "{userGroup.desc.size}")
+                                     @RequestParam("describe") String describe,
+                                     @NotNull@RequestParam("ids") String ids) throws Exception {
+
+       /* if (!StringUtil.isNotNull(groupname)) {
+            return "管理员组名称不能为空";
+        }
+
+        if (!StringUtil.isMaxSize(groupname, 20)) {
+            return "管理员组名称长度不能超过20个字符";
+        }
+
+        if (!StringUtil.isNotNull(describe)) {
+            return "描述信息不能为空";
+        }
+
+        if (!StringUtil.isMaxSize(describe, 50)) {
+            return "权限名称长度不能超过50个字符";
+        }
+        if (!StringUtil.MinSize(ids)) {
+            return "权限请至少选择一个";
+        }*/
+        AdmusergroupDTO usergroupDTO = new AdmusergroupDTO();
+        usergroupDTO.setId(id);
+        usergroupDTO.setGroupname(groupname);
+        usergroupDTO.setDes(describe);
+        usergroupDTO.setIsdel(1);
+        int num = userGroupService.updateUserGroup(usergroupDTO);
+        if (num < 1) {
+            return "修改失败";
+        }
+
+        int[] gids;
+        try {
+            gids = StringUtil.strArrToIntArr(ids);
+        } catch (Exception e) {
+            return "ids不是数字,添加管理员组失败。";
+        }
+
+        groupRoleRelService.delGroupRoleRel(id);
+
+
+        List<GroupRoleRelDTO> list = new ArrayList<GroupRoleRelDTO>();
+        for (int i = 0; i < gids.length; i++) {
+            long gid = gids[i];
+            GroupRoleRelDTO groupRoleRelDTO = new GroupRoleRelDTO();
+            groupRoleRelDTO.setIsdel(1);
+            groupRoleRelDTO.setGroupid(id);
+            groupRoleRelDTO.setRoleid(gid);
+
+
+            list.add(groupRoleRelDTO);
+        }
+
+        groupRoleRelService.addUserGroupRels(list);
+
+        return "success";
+    }
     /**
      * 删除管理员组
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public String delete(@RequestParam("ids") String ids) throws ServiceException {
+    public String delete(@RequestParam("ids") String ids) throws Exception {
         int[] gids;
         try {
             gids = StringUtil.strArrToIntArr(ids);
@@ -151,11 +223,11 @@ public class AdminUserGroupController extends BaseController{
             return "ids不是数字,删除管理员组失败。";
         }
         int num=0;
-        //num = userGroupService.delUserGroup(gids);
+        num = userGroupService.delUserGroup(gids);
         if (num < 1) {
             return "删除失败";
         }
-        // num = userGroupService.delGRoleRelList(gids);
+        num = groupRoleRelService.delGRoleRelList(gids);
         if (num < 1) {
             return "删除失败";
         }

@@ -22,5 +22,12 @@ public class GroupRoleRelService {
     public int addUserGroupRels(List<GroupRoleRelDTO> list) throws Exception {
         return groupRoleRelRepository.addUserGroupRels(list);
     }
+    public int delGroupRoleRel(long id) throws Exception {
+        return groupRoleRelRepository.delGroupRoleRel(id);
+    }
+    public int delGRoleRelList(int[] ids)throws Exception{
+        return groupRoleRelRepository.delGRoleRelList(ids);
+    }
+
 
 }

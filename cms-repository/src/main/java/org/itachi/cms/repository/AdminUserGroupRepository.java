@@ -1,7 +1,6 @@
 package org.itachi.cms.repository;
 
 import org.itachi.cms.dto.AdmusergroupDTO;
-import org.itachi.cms.exception.ServiceException;
 import org.itachi.cms.mapper.AdminUserGroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,7 +46,7 @@ public class AdminUserGroupRepository {
         return adminUserGroupMapper.admusergroupById(id);
     }
 
-    public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws ServiceException {
+    public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws Exception {
         int count = adminUserGroupMapper.countAdmUserGroup(map);
         List<AdmusergroupDTO> admusergroupList = adminUserGroupMapper.findAdmUserGroup(map);
 

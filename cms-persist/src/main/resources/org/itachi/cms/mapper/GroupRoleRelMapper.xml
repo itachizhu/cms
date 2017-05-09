@@ -21,7 +21,7 @@
         </foreach>
     </insert>
 
-    <select id="findroleid" resultType="list" parameterType="long">
+    <select id="findroleid" resultType="long" parameterType="long">
         SELECT roleid from t_group_role_rel t where t.groupid = #{id} and t.isdel =1
     </select>
 

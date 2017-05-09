@@ -130,17 +130,14 @@ public class UserGroupService {
     public List<RoleTreeDTO> getRoleTreeList(String admgroupuserid) throws Exception{
         List<RoleTreeDTO> list =null;
         List<Long> roleids =null;
-        try {
-            long groupId = Long.parseLong(admgroupuserid);
-            roleids = groupRoleRelRepository.findroleid(groupId);
-        }catch (Exception e){
-        }
+        long groupId = Long.parseLong(admgroupuserid);
+        roleids = groupRoleRelRepository.findroleid(groupId);
 
-        Map<String, Boolean> map = new HashMap<String, Boolean>();
+        Map<Long, Boolean> map = new HashMap<Long, Boolean>();
         if(roleids!=null&&roleids.size()>0){
 
             for (Long roleid : roleids) {
-                map.put(roleid + "", true);
+                map.put(roleid, true);
             }
         }
         list = roleRepository.listtree(null,false);

@@ -63,7 +63,7 @@
         <if test="admUser.phone !=null and admUser.phone!=''">
             AND t.phone=#{admUser.phone}
         </if>
-        <if test="admUser.accout !=null and admUser.accout!=''">
+        <if test="admUser.account !=null and admUser.account!=''">
             AND t.accout=#{admUser.accout}
         </if>
 

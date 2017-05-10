@@ -38,13 +38,13 @@ public class AdminUserController {
                                         @RequestParam(value = "admuserphone", required = false) String admuserphone,
                                         @RequestParam(value = "admusername", required = false) String admusername,
                                         @RequestParam(value = "admuserid", required = false) Long admuserid,
-                                        @RequestParam(value = "account", required = false) String account,
+                                        @RequestParam(value = "admaccout", required = false) String admaccout,
                                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                         @RequestParam(value = "rows", required = false, defaultValue = "10") int rows) throws Exception {
 
         AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setId(admuserid);
-        userDTO.setAccount(account);
+        userDTO.setAccount(admaccout);
         userDTO.setMail(admusermail);
         userDTO.setPhone(admuserphone);
         userDTO.setName(admusername);

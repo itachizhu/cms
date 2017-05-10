@@ -26,6 +26,7 @@ public abstract class CmsError {
         ADD_OR_MODIFY_GROUP_FAILURE(201,"用户组添加或者修改失败"),
         AUTHORITY_GROUP_FAILURE(202,"部分权限添加失败，请补充添加权限。"),
         DEL_GROUP_FAILURE(203,"用户组删除失败"),
+        USER_EXISTS(204,"用户已经存在"),
         UNKNOWN(999, "未知错误");
 
         private final int code;

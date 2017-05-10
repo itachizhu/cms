@@ -24,7 +24,7 @@ public class AdminUserController {
     @Autowired
     private AdminUserService adminUserService;
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String admuserList() throws Exception {
         return "/admUser/admUserList";
     }
@@ -54,5 +54,32 @@ public class AdminUserController {
         map.put("pager",pager);
         return adminUserService.gridlist(map);
     }
+
+
+    /**
+     * 进入添加页面
+     */
+    @RequestMapping(value = "/toaddadmuser", method = RequestMethod.GET)
+    public String addAdmuser() throws Exception {
+        return "/admUser/addAdmUser";
+    }
+
+    /**
+     * 添加管理员
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addadmuser", method = RequestMethod.POST)
+    public String addadmuser(@RequestParam(value = "account", required = false) String account,
+                    @RequestParam(value = "mail", required = false) String mail,
+                    @RequestParam(value = "name", required = false) String name,
+                    @RequestParam(value = "phone", required = false) String phone,
+                    @RequestParam(value = "department", required = false) String department,
+                    @RequestParam(value = "password", required = false) String password,
+                    @RequestParam(value = "ids", required = false) String ids) throws Exception {
+        return adminUserService.addAdminUser(account,mail,name,phone,department,password,ids);
+    }
+
+
+
 
 }

@@ -135,6 +135,7 @@ public class UserGroupService {
 
         Map<Long, Boolean> map = new HashMap<Long, Boolean>();
         if(roleids!=null&&roleids.size()>0){
+
             for (Long roleid : roleids) {
                 map.put(roleid, true);
             }

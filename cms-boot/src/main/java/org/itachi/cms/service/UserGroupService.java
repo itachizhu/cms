@@ -141,6 +141,7 @@ public class UserGroupService {
         }
         list = roleRepository.listtree(null,false);
         for (int i = 0, sies = list.size(); i < sies; i++) {
+
             if(map.containsKey(list.get(i).getId()))
                 list.get(i).setChecked(true);
         }

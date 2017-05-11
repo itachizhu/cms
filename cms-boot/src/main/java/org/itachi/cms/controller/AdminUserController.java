@@ -178,7 +178,6 @@ public class AdminUserController extends BaseController{
         if (result != null) {
             return result;
         }
-
         return "success";
     }
 

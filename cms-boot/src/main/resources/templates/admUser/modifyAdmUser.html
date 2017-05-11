@@ -1,40 +1,41 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<body>
 <!--添加权限窗口 -->
 <div class="easyui-layout" data-options="fit:true">
     <!--基础信息窗口 start-->
     <div data-options="region:'north',split:true" border="false" style="padding:10px 10px 20px 50px">
 
-        <form id="modifyAdmUser">
-            <input value="${admuser.id}" type="hidden" name="admUserId"></input>
+        <form id="modifyAdmUser" method="post">
+            <input  th:value="${admuser.id}" type="hidden" name="admUserId"></input>
             <table cellpadding="5">
                 <tr>
                     <td>登陆账号:</td>
-                    <td><input class="easyui-textbox" value="${admuser.accout}" type="text" name="modifyAdmUserAcout" required="true"
+                    <td><input class="easyui-textbox" type="text"  th:value="${admuser.account}" name="modifyAdmUserAcout" required="true"
                                missingMessage="不能为空"></input>
                     </td>
                     <td>姓名:</td>
-                    <td><input class="easyui-textbox" value="${admuser.name}" type="text" name="modifyAdmUserName" required="true"
+                    <td><input class="easyui-textbox" type="text" th:value="${admuser.name}" name="modifyAdmUserName" required="true"
                                missingMessage="不能为空"></input>
                     </td>
                     <td>手机号:</td>
-                    <td><input class="easyui-textbox" value="${admuser.phone}" type="text" name="modifyAdmUserPhone" required="true"
+                    <td><input class="easyui-textbox" type="text" th:value="${admuser.phone}" name="modifyAdmUserPhone" required="true"
                                missingMessage="不能为空"></input>
                     </td>
                 </tr>
                 <tr>
                     <td>部门:</td>
-                    <td><input class="easyui-textbox" value="${admuser.department}" type="text" name="modifyAdmUserDepartment" required="true"
+                    <td><input class="easyui-textbox"  type="text" th:value="${admuser.department}" name="modifyAdmUserDepartment" required="true"
                                missingMessage="不能为空"></input>
                     </td>
                     <td>邮箱:</td>
                     <td>
-                        <input class="easyui-textbox" value="${admuser.mail}" type="text" name="modifyAdmUserEmail" validtype="email" required="true"
+                        <input class="easyui-textbox"  type="text" th:value="${admuser.mail}" name="modifyAdmUserEmail" validtype="email" required="true"
                                missingMessage="不能为空" invalidMessage="邮箱格式不正确"></input>
                     </td>
 
                     <td>新密码:</td>
-                    <td><input class="easyui-textbox" type="password" name="modifyAdmUserPassword" required="true"  missingMessage="不修改密码请留空"></input>
+                    <td><input class="easyui-textbox"  type="password" name="modifyAdmUserPassword" required="true"  missingMessage="不修改密码请留空"></input>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +71,7 @@
 
             <div>
                 组名称:
-                <input name="modifyAdmUser_UserGroupName" class="easyui-textbox" style="width: 100px">
+                <input name="modifyAdmUser_UserGroupName" class="easyui-textbox" style="width: 100px"/>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="modifyAdmUserObj.search()">查询</a>
             </div>
         </div>
@@ -78,6 +79,8 @@
     <!--权限列表展示end-->
 </div>
 
-<script type="text/javascript"  th:src="@{/js/admUser/modifyAdmuser.js}"></script>
-
+<script type="text/javascript"  th:src="@{/js/admUser/modifyAdmuser.js}">
+var admuser=[[${admuser}]];
+</script>
+</body>
 </html>

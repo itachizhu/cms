@@ -9,7 +9,7 @@
             <table cellpadding="5">
                 <tr>
                     <td>登陆账号:</td>
-                    <td><input class="easyui-textbox" value="${admuser.accout}" type="text" name="modifyAdmUserAcout" required="true"
+                    <td><input class="easyui-textbox" value="${admuser.account}" type="text" name="modifyAdmUserAcout" required="true"
                                missingMessage="不能为空"></input>
                     </td>
                     <td>姓名:</td>

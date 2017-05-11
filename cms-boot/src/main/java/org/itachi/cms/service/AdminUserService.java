@@ -162,4 +162,54 @@ public class AdminUserService {
         }
         return userDTO;
     }
-}
+    public AdminUserDTO getUserById(long id) throws Exception {
+        return adminUserRepository.getUserById(id);
+    }
+
+    public String modifyyadmuser(String groupids,long userId,String account,String mail,String name,String phone,String department,String password) throws Exception{
+        validateForm(groupids,account,mail,name,phone,department,password);
+        AdminUserDTO admuserDTO = new AdminUserDTO();
+        admuserDTO.setId(userId);
+        admuserDTO.setAccount(account);
+        admuserDTO.setPassword(password);
+        admuserDTO.setName(name);
+        admuserDTO.setPhone(phone);
+        admuserDTO.setMail(mail);
+        admuserDTO.setIsdel(1);
+        admuserDTO.setDepartment(department);
+        int code = adminUserRepository.updateUser(admuserDTO);
+        if (code < 1) {
+            return "修改失败";
+        } else {
+            userGroupRelpository.updateUserGroupRel(userId);
+            int[] gids;
+            try {
+                gids = StringUtil.strArrToIntArr(groupids);
+            } catch (Exception e) {
+                return "出现异常，部分权限添加失败，请补充添加权限。";
+            }
+            List<UserGroupRelDTO> list = new ArrayList<UserGroupRelDTO>();
+            for (int i = 0; i < gids.length; i++) {
+                UserGroupRelDTO userGroupRelDTO = new UserGroupRelDTO();
+                userGroupRelDTO.setIsdel(1);
+                userGroupRelDTO.setUserid(userId);
+                int l = gids[i];
+                userGroupRelDTO.setGroupid((long) l);
+                list.add(userGroupRelDTO);
+            }
+            code = userGroupRelpository.addUserGroupRels(list);
+            if (code < 1) {
+                return "出现异常，部分权限添加失败，请补充添加权限。";
+            }
+        }
+        return "success";
+    }
+
+    public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws Exception {
+        return adminUserGroupRepository.findAdmUserGroup(map);
+    }
+    public String deleteUserDTO(int[] uids){
+        return adminUserRepository.deleteUserDTO(uids);
+    }
+
+    }

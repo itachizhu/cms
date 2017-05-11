@@ -1,8 +1,6 @@
 package org.itachi.cms.controller;
 
 import org.itachi.cms.dto.AdminUserDTO;
-import org.itachi.cms.dto.AdmusergroupDTO;
-import org.itachi.cms.dto.AdmusergroupcheckDTO;
 import org.itachi.cms.dto.PagerDTO;
 import org.itachi.cms.repository.AdminUserGroupCheckRepository;
 import org.itachi.cms.repository.AdminUserGroupRepository;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -127,43 +123,12 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/gridgrouplist", method = RequestMethod.POST)
-    public Map<String, Object> gridgrouplist(@RequestParam("admUserId") long admUserId,
-                                             //@RequestParam("groupname") String groupname,
-                                             @RequestParam("page") int page,
-                                             @RequestParam("rows") int rows) throws Exception {
-
-
-        PagerDTO pager = new PagerDTO(page, rows);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("pager", pager);
-        //map.put("groupname", groupname);
-        Map<String, Object> UserGroupMap = adminUserGroupRepository.findAdmUserGroup(map);
-        List<AdmusergroupDTO> usergroupList = (List<AdmusergroupDTO>) UserGroupMap.get("rows");
-        Map<String, Boolean> bolmap = groupCheckRepository.getAllCheckGroup(admUserId);
-        List<AdmusergroupcheckDTO> groupChecks = new ArrayList<AdmusergroupcheckDTO>();
-        for (int i = 0; i < usergroupList.size(); i++) {
-            AdmusergroupcheckDTO groupcheckDTO = new AdmusergroupcheckDTO();
-            groupcheckDTO.setId(usergroupList.get(i).getId());
-            groupcheckDTO.setGroupname(usergroupList.get(i).getGroupname());
-            groupcheckDTO.setDes(usergroupList.get(i).getDes());
-            groupcheckDTO.setCreatetime(usergroupList.get(i).getCreatetime());
-            groupcheckDTO.setUpdatetime(usergroupList.get(i).getUpdatetime());
-            groupcheckDTO.setIsdel(usergroupList.get(i).getIsdel());
-            String idkey = usergroupList.get(i).getId() + "";
-            if (bolmap.containsKey(idkey)) {
-                groupcheckDTO.setCheck(bolmap.get(idkey));
-            } else {
-                groupcheckDTO.setCheck(false);
-            }
-
-            groupChecks.add(groupcheckDTO);
-        }
-        Map<String, Object> result = new HashMap<String, Object>();
-
-        result.put("rows", groupChecks);
-        result.put("total", UserGroupMap.get("total"));
-
-        return result;
+    public Map<String, Object> gridgrouplist(
+            @RequestParam("admUserId") long admUserId,
+            //@RequestParam("groupname") String groupname,
+            @RequestParam("page") int page,
+            @RequestParam("rows") int rows) throws Exception {
+        return adminUserService.gridgrouplist(admUserId,page,rows);
     }
 
     /**

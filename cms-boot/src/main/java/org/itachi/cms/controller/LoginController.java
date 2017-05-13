@@ -43,5 +43,4 @@ public class LoginController extends BaseController {
         // Utils.cleanSessions(request);
         return "redirect:/login";
     }
-
 }

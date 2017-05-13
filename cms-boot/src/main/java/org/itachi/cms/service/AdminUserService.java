@@ -41,26 +41,25 @@ public class AdminUserService {
         map.put("total", adminUserRepository.getUserCount(userDTO));
         return map;
     }
-
-    public String addAdminUser(AdminUserDTO dto) throws Exception{
-        validateForm(dto);
-
-        dto.setAccount(dto.getAccount());
-        int count = adminUserRepository.getUserCount(dto);
+    public String addAdminUser(String account,String mail,String name,String phone,String department,String password,String ids) throws Exception{
+        validateForm(account,mail,name,phone,department,password,ids);
+        AdminUserDTO admuserDTO = new AdminUserDTO();
+        admuserDTO.setAccount(account);
+        int count = adminUserRepository.getUserCount(admuserDTO);
         if (count > 0) {
             throw new ServiceException(CmsError.Error.USER_EXISTS);
         } else {
-            dto.setPassword(dto.getPassword());
-            dto.setName(dto.getName());
-            dto.setPhone(dto.getPhone());
-            dto.setMail(dto.getMail());
-            dto.setIsdel(1);
-            dto.setDepartment(dto.getDepartment());
-            adminUserRepository.addUser(dto);
-            AdminUserDTO admuser = adminUserRepository.getUser(dto.getAccount());
+            admuserDTO.setPassword(password);
+            admuserDTO.setName(name);
+            admuserDTO.setPhone(phone);
+            admuserDTO.setMail(mail);
+            admuserDTO.setIsdel(1);
+            admuserDTO.setDepartment(department);
+            adminUserRepository.addUser(admuserDTO);
+            AdminUserDTO admuser = adminUserRepository.getUser(account);
             int[] gids;
             try {
-                gids = StringUtil.strArrToIntArr(dto.getGroupids());
+                gids = StringUtil.strArrToIntArr(ids);
             } catch (Exception e) {
                 throw new ServiceException(CmsError.Error.AUTHORITY_GROUP_FAILURE);
             }
@@ -78,7 +77,63 @@ public class AdminUserService {
         return "success";
     }
 
-
+    /**
+     * 校验提交的form数据
+     * @param account
+     * @param mail
+     * @param name
+     * @param phone
+     * @param department
+     * @param password
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    public String validateForm(String account,String mail,String name,String phone,String department,String password,String ids) throws Exception{
+        if (!StringUtil.isNotNull(account)) {
+            return "账号不能为空";
+        }
+        if (!StringUtil.isMaxSize(account, 20)) {
+            return "账号长度不能超过20个字符";
+        }
+        if (!StringUtil.isNotNull(mail)) {
+            return "邮箱不能为空";
+        }
+        if (!StringUtil.isMaxSize(mail, 50)) {
+            return "账号长度不能超过20个字符";
+        }
+        if (!StringUtil.isEmail(mail)) {
+            return "邮箱格式错误";
+        }
+        if (!StringUtil.isNotNull(name)) {
+            return "姓名不能为空";
+        }
+        if (!StringUtil.isMaxSize(name, 20)) {
+            return "姓名长度不能超过20个字符";
+        }
+        if (!StringUtil.isNotNull(phone)) {
+            return "手机号码不能为空";
+        }
+        if (!StringUtil.isMobile(phone)) {
+            return "手机号码格式错误";
+        }
+        if (!StringUtil.isNotNull(department)) {
+            return "部门不能为空";
+        }
+        if (!StringUtil.isMaxSize(department, 20)) {
+            return "部门长度不能超过20个字符";
+        }
+        if (!StringUtil.isNotNull(password)) {
+            return "密码不能为空";
+        }
+        if (!StringUtil.isMaxSize(password, 20)) {
+            return "密码长度不能超过20个字符";
+        }
+        if (!StringUtil.MinSize(ids)) {
+            return "组信息请至少选择一个";
+        }
+        return "";
+    }
     /**
      * 校驗參數
      * @param dto

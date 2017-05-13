@@ -76,8 +76,14 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/addadmuser", method = RequestMethod.POST)
-    public String addadmuser(@RequestBody AdminUserDTO dto) throws Exception {
-        return adminUserService.addAdminUser(dto);
+    public String addadmuser(@RequestParam(value = "account", required = false) String account,
+                             @RequestParam(value = "mail", required = false) String mail,
+                             @RequestParam(value = "name", required = false) String name,
+                             @RequestParam(value = "phone", required = false) String phone,
+                             @RequestParam(value = "department", required = false) String department,
+                             @RequestParam(value = "password", required = false) String password,
+                             @RequestParam(value = "ids", required = false) String ids) throws Exception {
+        return adminUserService.addAdminUser(account,mail,name,phone,department,password,ids);
     }
 
     /**

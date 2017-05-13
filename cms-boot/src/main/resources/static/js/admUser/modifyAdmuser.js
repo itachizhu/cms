@@ -2,6 +2,7 @@ $(function () {
   modifyAdmUserObj = {
         search: function () {
             $('#updateAdmUserGroup').datagrid('load', {
+                admUserId: $("input[name='admUserId']").val(),
                 groupName: $('input[name="modifyAdmUser_UserGroupName"]').val()         
             });
         }
@@ -10,7 +11,7 @@ $(function () {
     //datagrid初始化
     $('#updateAdmUserGroup').datagrid({
         url: 'admuser/gridgrouplist',
-        queryParams: { admUserId: $("input[name='admUserId']").val() },
+        queryParams: { admUserId: $("input[name='admUserId']").val(),groupName: $('input[name="modifyAdmUser_UserGroupName"]').val()},
         iconCls: 'icon-edit',//图标
         width: 700,
         height: 'auto',

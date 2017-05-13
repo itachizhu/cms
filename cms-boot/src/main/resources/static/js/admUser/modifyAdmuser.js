@@ -60,22 +60,24 @@ function submitModifyAmdUserForm() {
 
     url = "admuser/modifyyadmuser"
     var data = {
-        groupids: ids,
-        userId:$("input[name='admUserId']").val(),
-        account: $("input[name='modifyAdmUserAcout']").val(),
-        name: $("input[name='modifyAdmUserName']").val(),
-        phone: $("input[name='modifyAdmUserPhone']").val(),
-        department: $("input[name='modifyAdmUserDepartment']").val(),
-        password: $("input[name='modifyAdmUserPassword']").val(),
-        mail: $("input[name='modifyAdmUserEmail']").val()
+        "groupids": ids,
+        "userId":$("input[name='admUserId']").val(),
+        "account": $("input[name='modifyAdmUserAcout']").val(),
+        "name": $("input[name='modifyAdmUserName']").val(),
+        "phone": $("input[name='modifyAdmUserPhone']").val(),
+        "department": $("input[name='modifyAdmUserDepartment']").val(),
+        "password": $("input[name='modifyAdmUserPassword']").val(),
+        "mail": $("input[name='modifyAdmUserEmail']").val()
     };
 
-    if (data.account.length < 1 || data.name.length < 1 || data.phone.length < 1 || data.department.length < 1 || data.mail.length < 1) {
+    if (data["account"].length < 1 || data["name"].length < 1 || data["phone"].length < 1 || data["department"].length < 1 || data["mail"].length < 1) {
         $.messager.alert('操作提示', "信息填写不完整,请补充后重新提交", 'info');
         return
     }
 
 
+    /*
+     headers: {'Content-Type': 'application/json'},
     $.post(url, data, function (result) {
         if (result == "success") {
             $('#modifyAdmUser').window("close")
@@ -83,6 +85,35 @@ function submitModifyAmdUserForm() {
             loadModifyAdmUserGrid()
         } else {
             $.messager.alert('操作提示', result, 'info');
+        }
+    });
+    */
+    $.ajax({
+        type: "POST",
+        url: url,
+        processData: false,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(result) {
+            if (result == "success") {
+                $('#modifyAdmUser').window("close");
+                $.messager.alert('操作提示', "修改成功", 'info');
+                loadModifyAdmUserGrid()
+            } else {
+                $.messager.alert('操作提示', result, 'info');
+            }
+        },
+        error: function (XMLHttpRequest) {
+            if (XMLHttpRequest.status == 500) {
+                $("#errmsg").html("服务器异常，请联系管理员！");
+            } else if (XMLHttpRequest.status == 404) {
+                $("#errmsg").html("请求地址不存在，请联系管理员！");
+            } else {
+                if (XMLHttpRequest.responseJSON && XMLHttpRequest.responseJSON.message) {
+                    console.log(XMLHttpRequest.responseJSON.code);
+                    $("#errmsg").html(XMLHttpRequest.responseJSON.message);
+                }
+            }
         }
     });
 }

@@ -23,6 +23,7 @@ public abstract class CmsError {
         ACCOUNT_INVALID(105, "非法的用户名"),
         PASSWORD_INVALID(106, "非法的密码"),
         USER_NOT_EXISTS(107, "用户名或密码错误"),
+        ID_EMPTY(108, "Id为空!"),
         ADD_OR_MODIFY_GROUP_FAILURE(201,"用户组添加或者修改失败"),
         AUTHORITY_GROUP_FAILURE(202,"部分权限添加失败，请补充添加权限。"),
         DEL_GROUP_FAILURE(203,"用户组删除失败"),

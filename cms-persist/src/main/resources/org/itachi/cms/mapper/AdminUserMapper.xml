@@ -106,7 +106,7 @@
                 accout= #{account},
             </if>
             <if test="name !=null and name!=''">
-                name= #{name},
+                `name`= #{name},
             </if>
             <if test="mail !=null and mail!=''">
                 mail= #{mail},
@@ -118,7 +118,7 @@
                 department= #{department},
             </if>
             <if test="password !=null and password!=''">
-                password = password(#{password}),
+                `password` = password(#{password}),
             </if>
 
             updatetime=now()

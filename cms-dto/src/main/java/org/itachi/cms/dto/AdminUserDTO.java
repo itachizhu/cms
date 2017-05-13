@@ -17,9 +17,18 @@ public class AdminUserDTO implements Serializable {
     private String phone;
     private String department;
     private String password;
+    private String groupids;
     private Date createTime;
     private Date updateTime;
     private int isdel;
+
+    public String getGroupids() {
+        return groupids;
+    }
+
+    public void setGroupids(String groupids) {
+        this.groupids = groupids;
+    }
 
     public Long getId() {
         return id;

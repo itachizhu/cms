@@ -42,25 +42,25 @@ public class AdminUserService {
         return map;
     }
 
-    public String addAdminUser(String account,String mail,String name,String phone,String department,String password,String ids) throws Exception{
-        validateForm(account,mail,name,phone,department,password,ids);
-        AdminUserDTO admuserDTO = new AdminUserDTO();
-        admuserDTO.setAccount(account);
-        int count = adminUserRepository.getUserCount(admuserDTO);
+    public String addAdminUser(AdminUserDTO dto) throws Exception{
+        validateForm(dto);
+
+        dto.setAccount(dto.getAccount());
+        int count = adminUserRepository.getUserCount(dto);
         if (count > 0) {
             throw new ServiceException(CmsError.Error.USER_EXISTS);
         } else {
-            admuserDTO.setPassword(password);
-            admuserDTO.setName(name);
-            admuserDTO.setPhone(phone);
-            admuserDTO.setMail(mail);
-            admuserDTO.setIsdel(1);
-            admuserDTO.setDepartment(department);
-            adminUserRepository.addUser(admuserDTO);
-            AdminUserDTO admuser = adminUserRepository.getUser(account);
+            dto.setPassword(dto.getPassword());
+            dto.setName(dto.getName());
+            dto.setPhone(dto.getPhone());
+            dto.setMail(dto.getMail());
+            dto.setIsdel(1);
+            dto.setDepartment(dto.getDepartment());
+            adminUserRepository.addUser(dto);
+            AdminUserDTO admuser = adminUserRepository.getUser(dto.getAccount());
             int[] gids;
             try {
-                gids = StringUtil.strArrToIntArr(ids);
+                gids = StringUtil.strArrToIntArr(dto.getGroupids());
             } catch (Exception e) {
                 throw new ServiceException(CmsError.Error.AUTHORITY_GROUP_FAILURE);
             }
@@ -80,58 +80,56 @@ public class AdminUserService {
 
 
     /**
-     * 校验提交的form数据
-     * @param account
-     * @param mail
-     * @param name
-     * @param phone
-     * @param department
-     * @param password
-     * @param ids
+     * 校驗參數
+     * @param dto
      * @return
      * @throws Exception
      */
-    public String validateForm(String account,String mail,String name,String phone,String department,String password,String ids) throws Exception{
-        if (!StringUtil.isNotNull(account)) {
+    public String validateForm(AdminUserDTO dto) throws Exception{
+        if (dto.getId() == null || dto.getId() < 1L) {
+            throw new ServiceException(CmsError.Error.ID_EMPTY);
+        }
+
+        if (!StringUtil.isNotNull(dto.getAccount())) {
             return "账号不能为空";
         }
-        if (!StringUtil.isMaxSize(account, 20)) {
+        if (!StringUtil.isMaxSize(dto.getAccount(), 20)) {
             return "账号长度不能超过20个字符";
         }
-        if (!StringUtil.isNotNull(mail)) {
+        if (!StringUtil.isNotNull(dto.getMail())) {
             return "邮箱不能为空";
         }
-        if (!StringUtil.isMaxSize(mail, 50)) {
+        if (!StringUtil.isMaxSize(dto.getMail(), 50)) {
             return "账号长度不能超过20个字符";
         }
-        if (!StringUtil.isEmail(mail)) {
+        if (!StringUtil.isEmail(dto.getMail())) {
             return "邮箱格式错误";
         }
-        if (!StringUtil.isNotNull(name)) {
+        if (!StringUtil.isNotNull(dto.getName())) {
             return "姓名不能为空";
         }
-        if (!StringUtil.isMaxSize(name, 20)) {
+        if (!StringUtil.isMaxSize(dto.getName(), 20)) {
             return "姓名长度不能超过20个字符";
         }
-        if (!StringUtil.isNotNull(phone)) {
+        if (!StringUtil.isNotNull(dto.getPhone())) {
             return "手机号码不能为空";
         }
-        if (!StringUtil.isMobile(phone)) {
+        if (!StringUtil.isMobile(dto.getPhone())) {
             return "手机号码格式错误";
         }
-        if (!StringUtil.isNotNull(department)) {
+        if (!StringUtil.isNotNull(dto.getDepartment())) {
             return "部门不能为空";
         }
-        if (!StringUtil.isMaxSize(department, 20)) {
+        if (!StringUtil.isMaxSize(dto.getDepartment(), 20)) {
             return "部门长度不能超过20个字符";
         }
-        if (!StringUtil.isNotNull(password)) {
+        if (!StringUtil.isNotNull(dto.getPassword())) {
             return "密码不能为空";
         }
-        if (!StringUtil.isMaxSize(password, 20)) {
+        if (!StringUtil.isMaxSize(dto.getPassword(), 20)) {
             return "密码长度不能超过20个字符";
         }
-        if (!StringUtil.MinSize(ids)) {
+        if (!StringUtil.MinSize(dto.getGroupids())) {
             return "组信息请至少选择一个";
         }
         return "";
@@ -165,25 +163,30 @@ public class AdminUserService {
         return adminUserRepository.getUserById(id);
     }
 
-    public String modifyyadmuser(String groupids,long userId,String account,String mail,String name,String phone,String department,String password) throws Exception{
-        validateForm(groupids,account,mail,name,phone,department,password);
-        AdminUserDTO admuserDTO = new AdminUserDTO();
-        admuserDTO.setId(userId);
-        admuserDTO.setAccount(account);
-        admuserDTO.setPassword(password);
-        admuserDTO.setName(name);
-        admuserDTO.setPhone(phone);
-        admuserDTO.setMail(mail);
-        admuserDTO.setIsdel(1);
-        admuserDTO.setDepartment(department);
-        int code = adminUserRepository.updateUser(admuserDTO);
+    public String modifyyadmuser(AdminUserDTO dto) throws Exception{
+        validateForm(dto);
+
+        /*
+        dto.setId(dto.getId());
+        dto.setAccount(dto.getAccount());
+        dto.setPassword(dto.getPassword());
+        dto.setName(dto.getName());
+        dto.setPhone(dto.getPhone());
+        dto.setMail(dto.getMail());
+
+        dto.setDepartment(dto.getDepartment());
+        */
+
+        // dto.setId(1L);
+        dto.setIsdel(1);
+        int code = adminUserRepository.updateUser(dto);
         if (code < 1) {
             return "修改失败";
         } else {
-            userGroupRelpository.updateUserGroupRel(userId);
+            userGroupRelpository.updateUserGroupRel(dto.getId());
             int[] gids;
             try {
-                gids = StringUtil.strArrToIntArr(groupids);
+                gids = StringUtil.strArrToIntArr(dto.getGroupids());
             } catch (Exception e) {
                 return "出现异常，部分权限添加失败，请补充添加权限。";
             }
@@ -191,7 +194,7 @@ public class AdminUserService {
             for (int i = 0; i < gids.length; i++) {
                 UserGroupRelDTO userGroupRelDTO = new UserGroupRelDTO();
                 userGroupRelDTO.setIsdel(1);
-                userGroupRelDTO.setUserid(userId);
+                userGroupRelDTO.setUserid(dto.getId());
                 int l = gids[i];
                 userGroupRelDTO.setGroupid((long) l);
                 list.add(userGroupRelDTO);

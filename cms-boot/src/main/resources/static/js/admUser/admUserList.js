@@ -9,7 +9,7 @@ $(function () {
                 admuserid: $('input[name="searchAdmUserId"]').val()
             });
         }
-    }
+    };
     //datagrid初始化
     $('#admUser_list').datagrid({
         url: 'admuser/gridlist',
@@ -34,7 +34,7 @@ $(function () {
         ]],//设置表单复选框
         toolbar: admUser_toolbar
     });
-})
+});
 
 //添加修改按钮
 function admUserOpt(val, row, index) {
@@ -66,9 +66,6 @@ function openModifyAdmUserWin(admUserId) {
         href: "admuser/tomodifyadmuser?admUserId=" + admUserId
     });
 }
-
-deleteAdmUser
-
 
 //删除方法
 function deleteAdmUser() {

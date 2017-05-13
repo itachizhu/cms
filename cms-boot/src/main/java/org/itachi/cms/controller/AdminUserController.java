@@ -9,10 +9,7 @@ import org.itachi.cms.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,14 +76,8 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/addadmuser", method = RequestMethod.POST)
-    public String addadmuser(@RequestParam(value = "account", required = false) String account,
-                    @RequestParam(value = "mail", required = false) String mail,
-                    @RequestParam(value = "name", required = false) String name,
-                    @RequestParam(value = "phone", required = false) String phone,
-                    @RequestParam(value = "department", required = false) String department,
-                    @RequestParam(value = "password", required = false) String password,
-                    @RequestParam(value = "ids", required = false) String ids) throws Exception {
-        return adminUserService.addAdminUser(account,mail,name,phone,department,password,ids);
+    public String addadmuser(@RequestBody AdminUserDTO dto) throws Exception {
+        return adminUserService.addAdminUser(dto);
     }
 
     /**
@@ -105,16 +96,8 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/modifyyadmuser", method = RequestMethod.POST)
-    public String modifyyadmuser(
-            @RequestParam("userId") long userId,
-            @RequestParam("account") String account,
-            @RequestParam("mail") String mail,
-            @RequestParam("name") String name,
-            @RequestParam("phone") String phone,
-            @RequestParam("department") String department,
-            @RequestParam("password") String password,
-            @RequestParam("groupids") String groupids) throws Exception {
-        return adminUserService.modifyyadmuser(groupids,userId,account,mail,name,phone,department,password);
+    public String modifyyadmuser(@RequestBody AdminUserDTO dto) throws Exception {
+        return adminUserService.modifyyadmuser(dto);
     }
 
     /**

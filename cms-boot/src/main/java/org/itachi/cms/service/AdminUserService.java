@@ -203,13 +203,13 @@ public class AdminUserService {
         }
         return "success";
     }
-    public Map<String, Object> gridgrouplist(long admUserId,int page,int rows) throws Exception {
+    public Map<String, Object> gridgrouplist(long admUserId,String groupname,int page,int rows) throws Exception {
 
 
         PagerDTO pager = new PagerDTO(page, rows);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pager", pager);
-        //map.put("groupname", groupname);
+        map.put("groupname", groupname);
         Map<String, Object> UserGroupMap = adminUserGroupRepository.findAdmUserGroup(map);
         List<AdmusergroupDTO> usergroupList = (List<AdmusergroupDTO>) UserGroupMap.get("rows");
         Map<String, Boolean> bolmap = groupCheckRepository.getAllCheckGroup(admUserId);

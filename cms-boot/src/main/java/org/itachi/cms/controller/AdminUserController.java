@@ -125,10 +125,10 @@ public class AdminUserController extends BaseController{
     @RequestMapping(value = "/gridgrouplist", method = RequestMethod.POST)
     public Map<String, Object> gridgrouplist(
             @RequestParam("admUserId") long admUserId,
-            //@RequestParam("groupname") String groupname,
+            @RequestParam("groupName") String groupname,
             @RequestParam("page") int page,
             @RequestParam("rows") int rows) throws Exception {
-        return adminUserService.gridgrouplist(admUserId,page,rows);
+        return adminUserService.gridgrouplist(admUserId,groupname,page,rows);
     }
 
     /**

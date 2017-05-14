@@ -137,12 +137,16 @@ public class GlobalExceptionHandler {
     private HttpStatus handleValidException(Map<String, Object> result, MethodArgumentNotValidException exception) throws Exception {
         result.put(CODE, 104);
         result.put(MESSAGE, "Parameter Error!");
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (ObjectError error : exception.getBindingResult().getAllErrors()) {
-            Map<String, Object> map = new HashMap<>();
-            map.put(FIELD, exception.getBindingResult().getTarget());
-            map.put(MESSAGE, error.getDefaultMessage());
-            list.add(map);
+        if (exception.getBindingResult() != null && exception.getBindingResult().getAllErrors() != null
+                && !exception.getBindingResult().getAllErrors().isEmpty()) {
+            List<Map<String, Object>> list = new ArrayList<>();
+            for (ObjectError error : exception.getBindingResult().getAllErrors()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(FIELD, exception.getBindingResult().getTarget());
+                map.put(MESSAGE, error.getDefaultMessage());
+                list.add(map);
+            }
+            result.put(ERRORS, list);
         }
         return HttpStatus.BAD_REQUEST;
     }

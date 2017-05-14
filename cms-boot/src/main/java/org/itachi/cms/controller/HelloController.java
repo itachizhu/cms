@@ -1,14 +1,12 @@
 package org.itachi.cms.controller;
 
+import org.itachi.cms.beans.ValidBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 /**
@@ -38,5 +36,11 @@ public class HelloController {
     @ResponseBody
     public String valid(@Size(min = 2, max = 20, message = "{id.size}") @RequestParam String id) throws Exception {
         return id;
+    }
+
+    @RequestMapping(value = "/valid", method = RequestMethod.POST)
+    @ResponseBody
+    public ValidBean validBean(@Valid @RequestBody ValidBean user) throws Exception {
+        return user;
     }
 }

@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: api for cms
+version: 1.0
+baseUri: http://localhost:9091/cms/api/{version}
+mediaType:
+  - application/json
+protocols:
+  - HTTP
+description: 内容管理系统所有的API描述
+
+/admin:
+  /users:
+    get:
+      description: 管理员列表
+      queryParameters:
+        name:
+          type: string
+          required: false
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                [
+                  {
+                    "id":1
+                    "account":"admin"
+                  }
+                ]

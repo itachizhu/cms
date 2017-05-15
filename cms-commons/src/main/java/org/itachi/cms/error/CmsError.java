@@ -38,6 +38,7 @@ public abstract class CmsError {
         USER_EXISTS(204,"用户已经存在"),
         UNKNOWN(999, "未知错误");
 
+
         private final int code;
         private final String reason;
 

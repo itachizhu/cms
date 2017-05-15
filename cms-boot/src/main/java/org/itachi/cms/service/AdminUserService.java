@@ -196,6 +196,7 @@ public class AdminUserService {
 
     public String modifyyadmuser(AdminUserBean bean) throws Exception{
         validateForm(bean);
+
         AdminUserDTO dto = new AdminUserDTO();
         dto.setId(bean.getId());
         dto.setAccount(bean.getAccount());

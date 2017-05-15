@@ -3,12 +3,14 @@ server:
   context-path: /cms
   port: 9091
   tomcat:
-    basedir: target/cms-boot
+#    basedir: target/cms-boot
     accesslog:
       enabled: true
 logging:
-  level:
-    org.springframework.web: DEBUG
+  config: classpath:log4j2/log4j2.xml
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
 spring:
   thymeleaf:
     cache: false

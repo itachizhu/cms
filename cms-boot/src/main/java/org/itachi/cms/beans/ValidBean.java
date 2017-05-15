@@ -3,6 +3,7 @@ package org.itachi.cms.beans;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Created by itachi on 2017/5/14.
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
  * Date: 2017/5/14
  * Time: 17:00
  */
-public class ValidBean {
+public class ValidBean implements Serializable {
     @Range(min = 1L, max = 200L, message = "年龄不合法")
     private Long age;
     @Size(min = 1, max = 50, message = "名字长度不合法")

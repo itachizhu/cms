@@ -61,7 +61,7 @@ function submitModifyAmdUserForm() {
     url = "admuser/modifyyadmuser"
     var data = {
         "groupids": ids,
-        "userId":$("input[name='admUserId']").val(),
+        "id":$("input[name='admUserId']").val(),
         "account": $("input[name='modifyAdmUserAcout']").val(),
         "name": $("input[name='modifyAdmUserName']").val(),
         "phone": $("input[name='modifyAdmUserPhone']").val(),

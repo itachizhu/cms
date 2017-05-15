@@ -1,5 +1,6 @@
 package org.itachi.cms.controller;
 
+import org.itachi.cms.beans.AdminUserBean;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.PagerDTO;
 import org.itachi.cms.repository.AdminUserGroupCheckRepository;
@@ -102,7 +103,7 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/modifyyadmuser", method = RequestMethod.POST)
-    public String modifyyadmuser(@RequestBody AdminUserDTO dto) throws Exception {
+    public String modifyyadmuser(@RequestBody AdminUserBean dto) throws Exception {
         return adminUserService.modifyyadmuser(dto);
     }
 

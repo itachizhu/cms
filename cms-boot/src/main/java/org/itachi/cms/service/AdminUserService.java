@@ -1,5 +1,6 @@
 package org.itachi.cms.service;
 
+import org.itachi.cms.beans.AdminUserBean;
 import org.itachi.cms.dto.*;
 import org.itachi.cms.error.CmsError;
 import org.itachi.cms.exception.ServiceException;
@@ -140,52 +141,27 @@ public class AdminUserService {
      * @return
      * @throws Exception
      */
-    public String validateForm(AdminUserDTO dto) throws Exception{
+    public String validateForm(AdminUserBean dto) throws Exception{
         if (dto.getId() == null || dto.getId() < 1L) {
             throw new ServiceException(CmsError.Error.ID_EMPTY);
         }
-
-        if (!StringUtil.isNotNull(dto.getAccount())) {
-            return "账号不能为空";
+        if (dto.getAccount().equals(null) || dto.getAccount().isEmpty()) {
+            throw new ServiceException(CmsError.Error.ACCOUNT_EMPTY);
         }
-        if (!StringUtil.isMaxSize(dto.getAccount(), 20)) {
-            return "账号长度不能超过20个字符";
+        if (dto.getMail().equals(null) || dto.getMail().isEmpty()) {
+            throw new ServiceException(CmsError.Error.MAIL_EMPTY);
         }
-        if (!StringUtil.isNotNull(dto.getMail())) {
-            return "邮箱不能为空";
+        if (dto.getName().equals(null) || dto.getName().isEmpty()) {
+            throw new ServiceException(CmsError.Error.NAME_EMPTY);
         }
-        if (!StringUtil.isMaxSize(dto.getMail(), 50)) {
-            return "账号长度不能超过20个字符";
+        if (dto.getPhone().equals(null) || dto.getPhone().isEmpty()) {
+            throw new ServiceException(CmsError.Error.PHONE_EMPTY);
         }
-        if (!StringUtil.isEmail(dto.getMail())) {
-            return "邮箱格式错误";
+        if (dto.getDepartment().equals(null) || dto.getDepartment().isEmpty()) {
+            throw new ServiceException(CmsError.Error.DEPARTMENT_EMPTY);
         }
-        if (!StringUtil.isNotNull(dto.getName())) {
-            return "姓名不能为空";
-        }
-        if (!StringUtil.isMaxSize(dto.getName(), 20)) {
-            return "姓名长度不能超过20个字符";
-        }
-        if (!StringUtil.isNotNull(dto.getPhone())) {
-            return "手机号码不能为空";
-        }
-        if (!StringUtil.isMobile(dto.getPhone())) {
-            return "手机号码格式错误";
-        }
-        if (!StringUtil.isNotNull(dto.getDepartment())) {
-            return "部门不能为空";
-        }
-        if (!StringUtil.isMaxSize(dto.getDepartment(), 20)) {
-            return "部门长度不能超过20个字符";
-        }
-        if (!StringUtil.isNotNull(dto.getPassword())) {
-            return "密码不能为空";
-        }
-        if (!StringUtil.isMaxSize(dto.getPassword(), 20)) {
-            return "密码长度不能超过20个字符";
-        }
-        if (!StringUtil.MinSize(dto.getGroupids())) {
-            return "组信息请至少选择一个";
+        if (dto.getGroupids().equals(null) || dto.getGroupids().isEmpty()) {
+            throw new ServiceException(CmsError.Error.GROUP_EMPTY);
         }
         return "";
     }
@@ -218,45 +194,40 @@ public class AdminUserService {
         return adminUserRepository.getUserById(id);
     }
 
-    public String modifyyadmuser(AdminUserDTO dto) throws Exception{
-        validateForm(dto);
-
-        /*
-        dto.setId(dto.getId());
-        dto.setAccount(dto.getAccount());
-        dto.setPassword(dto.getPassword());
-        dto.setName(dto.getName());
-        dto.setPhone(dto.getPhone());
-        dto.setMail(dto.getMail());
-
-        dto.setDepartment(dto.getDepartment());
-        */
-
-        // dto.setId(1L);
+    public String modifyyadmuser(AdminUserBean bean) throws Exception{
+        validateForm(bean);
+        AdminUserDTO dto = new AdminUserDTO();
+        dto.setId(bean.getId());
+        dto.setAccount(bean.getAccount());
+        dto.setPassword(bean.getPassword());
+        dto.setName(bean.getName());
+        dto.setPhone(bean.getPhone());
+        dto.setMail(bean.getMail());
+        dto.setDepartment(bean.getDepartment());
         dto.setIsdel(1);
         int code = adminUserRepository.updateUser(dto);
         if (code < 1) {
-            return "修改失败";
+            throw new ServiceException(CmsError.Error.MODIFY_FAILED);
         } else {
-            userGroupRelpository.updateUserGroupRel(dto.getId());
+            userGroupRelpository.updateUserGroupRel(bean.getId());
             int[] gids;
             try {
-                gids = StringUtil.strArrToIntArr(dto.getGroupids());
+                gids = StringUtil.strArrToIntArr(bean.getGroupids());
             } catch (Exception e) {
-                return "出现异常，部分权限添加失败，请补充添加权限。";
+                throw new ServiceException(CmsError.Error.AUTHORITY_GROUP_FAILURE);
             }
             List<UserGroupRelDTO> list = new ArrayList<UserGroupRelDTO>();
             for (int i = 0; i < gids.length; i++) {
                 UserGroupRelDTO userGroupRelDTO = new UserGroupRelDTO();
                 userGroupRelDTO.setIsdel(1);
-                userGroupRelDTO.setUserid(dto.getId());
+                userGroupRelDTO.setUserid(bean.getId());
                 int l = gids[i];
                 userGroupRelDTO.setGroupid((long) l);
                 list.add(userGroupRelDTO);
             }
             code = userGroupRelpository.addUserGroupRels(list);
             if (code < 1) {
-                return "出现异常，部分权限添加失败，请补充添加权限。";
+                throw new ServiceException(CmsError.Error.AUTHORITY_GROUP_FAILURE);
             }
         }
         return "success";

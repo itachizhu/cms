@@ -10,8 +10,10 @@ import org.itachi.cms.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admuser")
+@Validated
 public class AdminUserController extends BaseController{
 
     protected static final String SUCCESS ="success";
@@ -103,7 +106,7 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/modifyyadmuser", method = RequestMethod.POST)
-    public String modifyyadmuser(@RequestBody AdminUserBean dto) throws Exception {
+    public String modifyyadmuser(@Valid @RequestBody AdminUserBean dto) throws Exception {
         return adminUserService.modifyyadmuser(dto);
     }
 

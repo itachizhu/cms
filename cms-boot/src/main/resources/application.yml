@@ -26,5 +26,11 @@ spring:
     username: cmsadmin
     password: cmsadmin
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    parser:
+      allow-single-quotes: true
 mybatis:
   type-aliases-package: org.itachi.cms.dto

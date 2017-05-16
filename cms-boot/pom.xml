@@ -7,7 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cms-boot</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>cms-boot Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -41,5 +41,29 @@
     </dependencies>
     <build>
         <finalName>cms-boot</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.3.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+            <!--
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+            </plugin>
+            -->
+        </plugins>
     </build>
 </project>

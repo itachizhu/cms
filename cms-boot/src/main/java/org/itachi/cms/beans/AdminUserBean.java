@@ -13,13 +13,13 @@ public class AdminUserBean {
     private String account;
     @Size(min = 1, max = 20, message = "邮箱长度不合法")
     private String mail;
-    @Size(min = 1, max = 20, message = "姓名长度不合法")
+    @Size(min = 6, max = 20, message = "姓名长度不合法")
     private String name;
     @Size(min = 11, max = 11, message = "手机格式不合法")
     private String phone;
     @Size(min = 1, max = 20, message = "部门长度不能超过20个字符")
     private String department;
-    @Size(min = 1, max = 11, message = "密码长度不能超过20个字符")
+    @Size(min = 0, max = 20, message = "密码长度不能超过20个字符")
     private String password;
 
     private String groupids;

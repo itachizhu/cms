@@ -10,6 +10,9 @@
     <packaging>jar</packaging>
     <name>cms-boot Maven Webapp</name>
     <url>http://maven.apache.org</url>
+    <properties>
+        <docker.image.prefix>itachisoft</docker.image.prefix>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -57,17 +60,28 @@
                         </goals>
                     </execution>
                 </executions>
+                <!--
                 <configuration>
                     <executable>true</executable>
                 </configuration>
+                -->
             </plugin>
-            <!--
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.13</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
-            -->
         </plugins>
     </build>
 </project>

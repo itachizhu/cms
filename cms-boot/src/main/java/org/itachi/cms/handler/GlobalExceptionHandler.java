@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -26,10 +27,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.MessageInterpolator;
-import javax.validation.ValidationException;
+import javax.validation.*;
 import java.util.*;
 
 /**
@@ -51,6 +49,9 @@ public class GlobalExceptionHandler {
 
     @Autowired
     private ResourceBundleLocator resourceBundleLocator;
+
+    @Autowired
+    private Validator validator;
 
     private HttpServletRequest request;
 
@@ -82,10 +83,34 @@ public class GlobalExceptionHandler {
         if (throwable instanceof MissingPathVariableException) {
             return handleValidException(result, (MissingPathVariableException)throwable);
         }
+        if (throwable instanceof BindException) {
+            return handleValidException(result, (BindException)throwable);
+        }
         if (throwable != null && throwable.getCause() != null && throwable.getCause() != throwable) {
             return ThrowableUtil.getInstance().handleException(result, throwable.getCause());
         }
         return ThrowableUtil.getInstance().handleException(result, throwable);
+    }
+
+    private HttpStatus handleValidException(Map<String, Object> result, BindException throwable) throws Exception {
+        Set<ConstraintViolation<Object>> violations = validator.validate(throwable.getTarget());
+        if (violations != null && !violations.isEmpty()) {
+            return handleValidException(result, new ConstraintViolationException(violations));
+        }
+
+        result.put(CODE, 104);
+        result.put(MESSAGE, "Parameter Error!");
+        if (throwable.getAllErrors() != null && !throwable.getAllErrors().isEmpty()) {
+            List<Map<String, Object>> list = new ArrayList<>();
+            for (ObjectError error : throwable.getAllErrors()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(FIELD, throwable.getTarget());
+                map.put(MESSAGE, error.getDefaultMessage());
+                list.add(map);
+            }
+            result.put(ERRORS, list);
+        }
+        return HttpStatus.BAD_REQUEST;
     }
 
     private HttpStatus handleValidException(Map<String, Object> result, ConstraintViolationException exception) throws Exception {
@@ -97,7 +122,9 @@ public class GlobalExceptionHandler {
             List<Map<String, String>> list = new ArrayList<>();
             for (ConstraintViolation<?> message : messages) {
                 Map<String, String> map = new HashMap<>();
-                map.put(FIELD, StringUtils.substringAfterLast(message.getPropertyPath().toString(), "."));
+                String field = StringUtils.substringAfterLast(message.getPropertyPath().toString(), ".");
+                field = (field == null || field.isEmpty()) ? message.getPropertyPath().toString() : field;
+                map.put(FIELD, field);
                 if (message.getMessageTemplate() != null && message.getMessageTemplate().length() > 0) {
                     MessageInterpolatorContext context = new MessageInterpolatorContext(message.getConstraintDescriptor(), message.getInvalidValue(), message.getRootBeanClass(), new HashMap<>(0));
                     map.put(MESSAGE, interpolate(message.getMessageTemplate(), context, locale));
@@ -133,6 +160,11 @@ public class GlobalExceptionHandler {
     }
 
     private HttpStatus handleValidException(Map<String, Object> result, MethodArgumentNotValidException exception) throws Exception {
+        Set<ConstraintViolation<Object>> violations = validator.validate(exception.getBindingResult().getTarget());
+        if (violations != null && !violations.isEmpty()) {
+            return handleValidException(result, new ConstraintViolationException(violations));
+        }
+
         result.put(CODE, 104);
         result.put(MESSAGE, "Parameter Error!");
         if (exception.getBindingResult() != null && exception.getBindingResult().getAllErrors() != null

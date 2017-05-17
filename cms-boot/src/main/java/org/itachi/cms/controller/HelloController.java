@@ -1,5 +1,7 @@
 package org.itachi.cms.controller;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.itachi.cms.bean.ValidParamBean;
 import org.itachi.cms.beans.ValidBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +9,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.QueryParam;
 
 /**
  * Created by itachi on 2017/4/23.
@@ -42,5 +47,17 @@ public class HelloController {
     @ResponseBody
     public ValidBean validBean(@Valid @RequestBody ValidBean user) throws Exception {
         return user;
+    }
+
+    @RequestMapping(value = "/valid", method = RequestMethod.PUT)
+    @ResponseBody
+    public ValidParamBean validJaxRsBean(@Valid @BeanParam ValidParamBean user) throws Exception {
+        return user;
+    }
+
+    @RequestMapping(value = "/valid", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String validJaxRs(@NotNull @NotEmpty @QueryParam("name") String name) throws Exception {
+        return name;
     }
 }

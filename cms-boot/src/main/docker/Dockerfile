@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:8-jre
 VOLUME /tmp
 EXPOSE 9091
 ADD cms-boot.jar app.jar

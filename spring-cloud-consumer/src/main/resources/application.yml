@@ -1,0 +1,16 @@
+debug: true
+logging:
+  level: debug
+spring:
+  application:
+    name: spring-cloud-consumer
+server:
+  port: 9002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+feign:
+  hystrix:
+    enabled: true
+

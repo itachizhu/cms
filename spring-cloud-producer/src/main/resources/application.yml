@@ -1,0 +1,13 @@
+debug: true
+logging:
+  level: debug
+spring:
+  application:
+    name: spring-cloud-producer
+server:
+  port: 9001
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+

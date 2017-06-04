@@ -10,6 +10,21 @@ import javax.ws.rs.QueryParam;
  */
 public class AdminUserParamBean {
 
+    @QueryParam("admuserphone")
+    private String admuserphone;
+
+    @QueryParam("admusername")
+    private String admusername;
+
+    @QueryParam("admuserid")
+    private Long admuserid;
+
+    @QueryParam("admaccout")
+    private String admaccout;
+
+    @QueryParam("admusermail")
+    private String admusermail;
+
     public Long getAdmuserid() {
         return admuserid;
     }
@@ -17,10 +32,6 @@ public class AdminUserParamBean {
     public void setAdmuserid(Long admuserid) {
         this.admuserid = admuserid;
     }
-
-    @QueryParam("admuserid")
-    private Long admuserid;
-
 
     public String getAdmaccout() {
         return admaccout;
@@ -30,12 +41,6 @@ public class AdminUserParamBean {
         this.admaccout = admaccout;
     }
 
-    @QueryParam("admaccout")
-    private String admaccout;
-
-    @QueryParam("admusermail")
-    private String admusermail;
-
     public String getAdmuserphone() {
         return admuserphone;
     }
@@ -44,9 +49,6 @@ public class AdminUserParamBean {
         this.admuserphone = admuserphone;
     }
 
-    @QueryParam("admuserphone")
-    private String admuserphone;
-
     public String getAdmusername() {
         return admusername;
     }
@@ -54,11 +56,6 @@ public class AdminUserParamBean {
     public void setAdmusername(String admusername) {
         this.admusername = admusername;
     }
-
-    @QueryParam("admusername")
-
-    private String admusername;
-
 
     public String getAdmusermail() {
         return admusermail;

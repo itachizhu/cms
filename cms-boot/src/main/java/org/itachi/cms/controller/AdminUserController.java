@@ -1,5 +1,6 @@
 package org.itachi.cms.controller;
 
+import org.itachi.cms.bean.AdminUserParamBean;
 import org.itachi.cms.beans.AdminUserBean;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.dto.PagerDTO;
@@ -45,35 +46,12 @@ public class AdminUserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/gridlist", method = RequestMethod.POST)
-    public Map<String, Object> gridlist(@RequestParam(value = "admusermail", required = false) String admusermail,
-                                        @RequestParam(value = "admuserphone", required = false) String admuserphone,
-                                        @RequestParam(value = "admusername", required = false) String admusername,
-                                        @RequestParam(value = "admuserid", required = false) Long admuserid,
-                                        @RequestParam(value = "admaccout", required = false) String admaccout,
+    public Map<String, Object> gridlist(AdminUserParamBean adminUserParamBean,
                                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                         @RequestParam(value = "rows", required = false, defaultValue = "10") int rows) throws Exception {
-
-        AdminUserDTO userDTO = new AdminUserDTO();
-        userDTO.setId(admuserid);
-        userDTO.setAccount(admaccout);
-        userDTO.setMail(admusermail);
-        userDTO.setPhone(admuserphone);
-        userDTO.setName(admusername);
-        PagerDTO pager = new PagerDTO(page, rows);
-        Map<String, Object> map = new HashMap<>();
-        map.put("userDTO",userDTO);
-        map.put("pager",pager);
-        return adminUserService.gridlist(map);
+        return adminUserService.gridlist(adminUserParamBean,page,rows);
     }
 
-
-    /**
-     * 进入添加页面
-     */
-    @RequestMapping(value = "/toaddadmuser", method = RequestMethod.GET)
-    public String addAdmuser() throws Exception {
-        return "admUser/addAdmUser";
-    }
 
     /**
      * 添加管理员

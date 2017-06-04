@@ -1,5 +1,6 @@
 package org.itachi.cms.service;
 
+import org.itachi.cms.bean.AdminUserParamBean;
 import org.itachi.cms.beans.AdminUserBean;
 import org.itachi.cms.dto.*;
 import org.itachi.cms.error.CmsError;
@@ -9,8 +10,11 @@ import org.itachi.cms.repository.AdminUserGroupRepository;
 import org.itachi.cms.repository.AdminUserRepository;
 import org.itachi.cms.repository.UserGroupRelRepository;
 import org.itachi.cms.util.StringUtil;
+import org.itachi.cms.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +39,10 @@ public class AdminUserService {
     @Autowired
     private AdminUserGroupCheckRepository groupCheckRepository;
 
-    public Map<String, Object> gridlist(Map<String, Object> map) throws Exception {
-        AdminUserDTO userDTO = (AdminUserDTO)map.get("userDTO");
-        PagerDTO pager = (PagerDTO) map.get("pager");
+    public Map<String, Object> gridlist(AdminUserParamBean adminUserParamBean,int page ,int rows) throws Exception {
+        AdminUserDTO userDTO = Utils.adminUserForm(adminUserParamBean);
+        PagerDTO pager = new PagerDTO(page, rows);
+        Map<String, Object> map = new HashMap<>();
         map.put("rows", adminUserRepository.getUserList(userDTO, pager));
         map.put("total", adminUserRepository.getUserCount(userDTO));
         return map;
@@ -278,4 +283,11 @@ public class AdminUserService {
     }
 
 
+    /**
+     * 进入添加页面
+     */
+    @RequestMapping(value = "/toaddadmuser", method = RequestMethod.GET)
+    public String addAdmuser() throws Exception {
+        return "admUser/addAdmUser";
     }
+}

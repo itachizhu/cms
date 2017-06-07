@@ -146,6 +146,8 @@ public class GlobalExceptionHandler {
         Map<String, Object> map = new HashMap<>();
         map.put(FIELD, exception.getVariableName());
         map.put(MESSAGE, exception.getMessage());
+        list.add(map);
+        result.put(ERRORS, list);
         return HttpStatus.BAD_REQUEST;
     }
 
@@ -156,6 +158,8 @@ public class GlobalExceptionHandler {
         Map<String, Object> map = new HashMap<>();
         map.put(FIELD, exception.getParameterName());
         map.put(MESSAGE, exception.getMessage());
+        list.add(map);
+        result.put(ERRORS, list);
         return HttpStatus.BAD_REQUEST;
     }
 

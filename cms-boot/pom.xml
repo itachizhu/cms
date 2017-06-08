@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
+                <version>1.0.0</version>
                 <configuration>
                     <dockerHost>https://192.168.99.100:2376</dockerHost>
                     <dockerCertPath>/Users/itachi/.docker/machine/machines/default</dockerCertPath>
@@ -83,8 +83,41 @@
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
                         </resource>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>src/main/docker</directory>
+                            <include>wrapper.sh</include>
+                        </resource>
                     </resources>
                 </configuration>
+                <!--
+                <configuration>
+                    <baseImage>java</baseImage>
+                    <imageName>mutli-test</imageName>
+                    <dockerHost>https://192.168.99.100:2376</dockerHost>
+                    <dockerCertPath>/Users/itachi/.docker/machine/machines/default</dockerCertPath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>app_image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                            <dockerDirectory>src/main/docker/app</dockerDirectory>
+                            <resources>
+                                <resource>
+                                    <targetPath>/</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${project.build.finalName}.jar</include>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+                -->
             </plugin>
         </plugins>
     </build>

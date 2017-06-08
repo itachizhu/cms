@@ -1,0 +1,3 @@
+FROM mysql:5.7
+VOLUME /tmp
+EXPOSE 3306

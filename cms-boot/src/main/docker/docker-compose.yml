@@ -1,0 +1,23 @@
+version: '2.1'
+
+
+services:
+  demo-sql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=000000
+      - MYSQL_DATABASE=cmsadmin
+      - MYSQL_USER=cmsadmin
+      - MYSQL_PASSWORD=cmsadmin
+  cms-app:
+    image: itachisoft/cms-boot
+    depends_on:
+      - demo-mysql
+    ports:
+      - 9091:9091
+    environment:
+      - DATABASE_HOST=demo-mysql
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=cmsadmin
+      - DATABASE_USER=cmsadmin
+      - DATABASE_PASSWORD=cmsadmin

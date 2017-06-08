@@ -1,6 +1,6 @@
 FROM java:8-jre
-VOLUME /tmp
-EXPOSE 9091
 ADD cms-boot.jar app.jar
+ADD wrapper.sh wrapper.sh
+RUN sh -c 'chmod +x /wrapper.sh'
 RUN sh -c 'touch /app.jar'
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["/bin/bash", "/wrapper.sh"]

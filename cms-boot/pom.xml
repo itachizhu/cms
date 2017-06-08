@@ -73,6 +73,8 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.13</version>
                 <configuration>
+                    <dockerHost>https://192.168.99.100:2376</dockerHost>
+                    <dockerCertPath>/Users/itachi/.docker/machine/machines/default</dockerCertPath>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>

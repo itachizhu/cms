@@ -13,7 +13,7 @@ docker is configured to use the default machine with IP 192.168.99.100
 
 ### 在Intellij中建立Maven任务
 在命令行参数中设置:
-```
+```bash
 docker:build
 ```
 
@@ -24,9 +24,20 @@ docker:build
 ### 使用对应映射的ip和端口链接测试对应的接口
 
 ### 添加mysql支持
-```
+```bash
 # 第一次创建(需要联网)
 docker run -d --name demo-mysql -e MYSQL_ROOT_PASSWORD=000000 -e MYSQL_DATABASE=cmsadmin -e MYSQL_USER=cmsadmin -e MYSQL_PASSWORD=cmsadmin mysql:5.7
 # 第一次根据repository创建
 docker run -it --name cms-app --link demo-mysql:mysql -p 9091:9091 itachisoft/cms-boot
+```
+
+### 重启安装虚拟机
+```bash
+docker stop demo-mysql
+docker stop cms-app
+
+docker rm demo-mysql
+docker rm cms-app
+
+docker-compose up
 ```

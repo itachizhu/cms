@@ -4,6 +4,7 @@ version: '2'
 services:
   demo-mysql:
     image: mysql:5.7
+    container_name: demo-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=000000
       - MYSQL_DATABASE=cmsadmin
@@ -11,6 +12,7 @@ services:
       - MYSQL_PASSWORD=cmsadmin
   cms-app:
     image: itachisoft/cms-boot
+    container_name: cms-app
     depends_on:
       - demo-mysql
     ports:

@@ -11,13 +11,10 @@ java实现的cms
 docker is configured to use the default machine with IP 192.168.99.100
 ```
 
-### 在Intellij中建立Maven任务
-在命令行参数中设置:
+### 运行maven命令
 ```bash
-docker:build
+mvn clean package docker:build
 ```
-
-### 执行之前的build和新建的docker:build
 
 ### 使用Kitematic工具进行容器状态和日志查看
 
@@ -31,13 +28,16 @@ docker run -d --name demo-mysql -e MYSQL_ROOT_PASSWORD=000000 -e MYSQL_DATABASE=
 docker run -it --name cms-app --link demo-mysql:mysql -p 9091:9091 itachisoft/cms-boot
 ```
 
-### 重启安装虚拟机
+### 安装重启虚拟机
 ```bash
+# 停止之前测试创建的docker容器
 docker stop demo-mysql
 docker stop cms-app
 
+# 删除容器
 docker rm demo-mysql
 docker rm cms-app
 
+# 使用docker-compose方式一次性创建多个容器并启动
 docker-compose up
 ```

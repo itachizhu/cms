@@ -40,7 +40,7 @@ public class HelloController {
     @RequestMapping(value = "/valid", method = RequestMethod.GET)
     @ResponseBody
     public String valid(@Size(min = 2, max = 20, message = "{id.size}") @RequestParam String id) throws Exception {
-        return "我还能说什么呢？我就试试呗：" + id;
+        return "我就试试呗：" + id;
     }
 
     @RequestMapping(value = "/valid", method = RequestMethod.POST)

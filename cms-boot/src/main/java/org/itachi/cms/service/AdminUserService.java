@@ -140,6 +140,7 @@ public class AdminUserService {
         }
         return "";
     }
+
     /**
      * 校驗參數
      * @param dto
@@ -195,6 +196,7 @@ public class AdminUserService {
         }
         return userDTO;
     }
+
     public AdminUserDTO getUserById(long id) throws Exception {
         return adminUserRepository.getUserById(id);
     }
@@ -278,6 +280,7 @@ public class AdminUserService {
     public Map<String, Object> findAdmUserGroup(Map<String, Object> map) throws Exception {
         return adminUserGroupRepository.findAdmUserGroup(map);
     }
+
     public String deleteUserDTO(int[] uids){
         return adminUserRepository.deleteUserDTO(uids);
     }

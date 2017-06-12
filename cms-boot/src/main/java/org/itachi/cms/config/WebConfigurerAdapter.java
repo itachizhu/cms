@@ -1,10 +1,18 @@
 package org.itachi.cms.config;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.itachi.cms.interceptor.AuthorizationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by itachi on 2017/4/23.
@@ -15,11 +23,33 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebConfigurerAdapter extends WebMvcConfigurerAdapter {
     @Autowired
+    @Qualifier("messageSource")
+    private MessageSource messageSource;
+
+    @Autowired
     private AuthorizationInterceptor authorizationInterceptor;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**");
+        List<String> includePatterns;
+        List<String> excludePatterns;
+        // 添加需要验证的路径正则表达式集合
+        try {
+            includePatterns = mapper.readValue(messageSource.getMessage("include.patterns",null, null, Locale.getDefault()), new TypeReference<List<String>>(){});
+         } catch (Exception e) {
+            includePatterns = new ArrayList<>();
+        }
+        // 添加需要忽略，不进入验证的正则表达式集合
+        try {
+            excludePatterns = mapper.readValue(messageSource.getMessage("exclude.patterns",null, null, Locale.getDefault()), new TypeReference<List<String>>(){});
+        } catch (Exception e) {
+            excludePatterns = new ArrayList<>();
+        }
+        registry.addInterceptor(authorizationInterceptor)
+                .addPathPatterns(includePatterns.toArray(new String[]{}))
+                .excludePathPatterns(excludePatterns.toArray(new String[]{}));
     }
 
     /*

@@ -56,9 +56,11 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         try {
             String servletPath = request.getServletPath();
+            /*
             if (validateIgnorePath(servletPath)) {
                 return true;
             }
+            */
             return checkSession(result, servletPath);
         } catch (Exception e) {
             return false;
@@ -105,7 +107,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         if (session.getAttribute(Constants.SESSION_KEY) == null) {
             result.put("code", 503);
-            result.put("message", "session不存在，用户没登陆");
+            result.put("message", "session中对应的对象不存在，用户没登陆");
             clearCookies();
             if (apiFlag) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());

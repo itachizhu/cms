@@ -6,13 +6,19 @@ import org.itachi.cms.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by kyo on 2017/5/6.
+ * Created by itachi on 2017/6/12.
+ * User: itachi
+ * Date: 2017/6/12
+ * Time: 15:48
  */
 @Controller
-public class LoginController extends BaseController {
+@RequestMapping("/admin")
+@Validated
+public class AdminLoginController extends BaseController {
     @Autowired
     private AdminUserService adminUserService;
 

@@ -87,21 +87,13 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     }
 
     private boolean checkSession(Map<String, Object> result, String servletPath) throws Exception {
-        String url = "login";
         HttpSession session = request.getSession(false);
         boolean apiFlag = validateApiPath(servletPath);
         if (session == null) {
             result.put("code", 502);
             result.put("message", "session不存在，用户没登陆");
             clearCookies();
-            if (apiFlag) {
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                response.getWriter().append(mapper.writeValueAsString(result)).flush();
-                response.getWriter().close();
-            } else  {
-                response.sendRedirect(request.getContextPath() + "/" + url);
-            }
+            abort(apiFlag, result);
             return false;
         }
 
@@ -109,17 +101,26 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             result.put("code", 503);
             result.put("message", "session中对应的对象不存在，用户没登陆");
             clearCookies();
-            if (apiFlag) {
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                response.getWriter().append(mapper.writeValueAsString(result)).flush();
-                response.getWriter().close();
-            } else  {
-                response.sendRedirect(url);
-            }
+            abort(apiFlag, result);
             return false;
         }
         return true;
+    }
+
+    private void abort(boolean apiFlag, Map<String, Object> result) throws Exception {
+        if (apiFlag) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+            response.getWriter().append(mapper.writeValueAsString(result)).flush();
+            response.getWriter().close();
+        } else  {
+            String url = messageSource.getMessage("login.path", null, "admin/login", Locale.getDefault());
+            if (url.startsWith("http")) {
+                response.sendRedirect(url);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/" + url);
+            }
+        }
     }
 
     private void clearCookies() {

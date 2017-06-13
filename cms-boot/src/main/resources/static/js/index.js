@@ -5,10 +5,8 @@ $(document).ready(function(){
     // addTab('系统用户组管理auto','admusergroup/list')
     // addTab('添加系统用户组管理auto','admusergroup/toadd')
     // addTab('添加系统用户auto','/admuser/toaddadmuser')
-
-
-
 });
+
 //添加标签页的方法
 function addTab(title, url) {
     if ($('#mainTab').tabs('exists', title)) {
@@ -39,11 +37,3 @@ Date.prototype.Format = function (fmt) { //author: meizz
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 };
-
-/**
- * 格式化时间
- */
-function dataformatter(value, row, index) {
-    if (value) return new Date(value).Format("yyyy-MM-dd hh:mm:ss");
-    return value;
-}

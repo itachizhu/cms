@@ -4,144 +4,36 @@
 
     <resultMap id="admUserResultMap" type="adminUserDTO">
         <id property="id" column="id"/>
-        <result property="account" column="accout" javaType="string"/>
-        <result property="mail" column="mail" javaType="string"/>
-        <result property="name" column="name" javaType="string"/>
-        <result property="phone" column="phone" javaType="string"/>
-        <result property="department" column="department" javaType="string"/>
-        <result property="password" column="password" javaType="string"/>
-        <result property="createTime" column="createtime" javaType="DATE"/>
-        <result property="updateTime" column="updatetime" javaType="DATE"/>
-        <result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER"/>
+        <result property="userNo" column="user_no" javaType="string"/>
+        <result property="userName" column="user_name" javaType="string"/>
+        <result property="password" column="pass_word" javaType="string"/>
+        <result property="roleId" column="role_id" javaType="long"/>
+        <result property="roleNo" column="role_no" javaType="string"/>
+        <result property="roleName" column="role_name" javaType="string"/>
+        <result property="lastLoginIP" column="last_login_ip" javaType="string"/>
+        <result property="lastLoginTime" column="last_login_time" javaType="long"/>
+        <result property="lastLogoutTime" column="last_logout_time" javaType="long"/>
+        <result property="loginTimes" column="login_times" javaType="int"/>
+        <result property="adminList" column="admin_list" javaType="string"/>
+        <result property="departmentId" column="dept_id" javaType="long"/>
+        <result property="departmentNo" column="dept_no" javaType="string"/>
+        <result property="duty" column="duty" javaType="string"/>
+        <result property="relation" column="relation" javaType="string"/>
+        <result property="createTime" column="create_time" javaType="long"/>
+        <result property="updateTime" column="update_time" javaType="long"/>
+        <result property="deleted" column="deleted" javaType="int"/>
     </resultMap>
 
     <sql id="admUser">
-        select * from t_admuser t
+        select * from admin_users t
     </sql>
 
     <sql id="count">
-        select count(1) from t_admuser t
+        select count(1) from admin_users t
     </sql>
-
-    <sql id="condition">
-        where t.isdel = 1
-        <if test="id !=null and id!=''">
-            AND t.id = #{id}
-        </if>
-        <if test="mail !=null and mail!=''">
-            AND t.mail=#{mail}
-        </if>
-        <if test="name !=null and name!=''">
-            AND t.name=#{name}
-        </if>
-        <if test="phone !=null and phone!=''">
-            AND t.phone=#{phone}
-        </if>
-        <if test="account !=null and account!=''">
-            AND t.accout=#{account}
-        </if>
-    </sql>
-
-
-    <select id="getUserCount" resultType="int" parameterType="adminUserDTO">
-        <include refid="count"/>
-        <include refid="condition"/>
-    </select>
-
-    <select id="getUserList" resultMap="admUserResultMap" parameterType="map">
-        select id,accout,mail,name,phone,department,password,createtime,updatetime,isdel from t_admuser t
-        where t.isdel = 1
-        <if test="admUser.id !=null and admUser.id!=''">
-            AND t.id = #{admUser.id}
-        </if>
-        <if test="admUser.mail !=null and admUser.mail!=''">
-            AND t.mail=#{admUser.mail}
-        </if>
-        <if test="admUser.name !=null and admUser.name!=''">
-            AND t.name=#{admUser.name}
-        </if>
-        <if test="admUser.phone !=null and admUser.phone!=''">
-            AND t.phone=#{admUser.phone}
-        </if>
-        <if test="admUser.account !=null and admUser.account!=''">
-            AND t.accout=#{admUser.accout}
-        </if>
-
-        limit #{pager.begin}, #{pager.rows}
-    </select>
-
-
-    <select id="getUser" resultMap="admUserResultMap" parameterType="string">
-        <include refid="admUser"/>
-        where t.accout = #{account} and t.isdel =1
-    </select>
-
-    <select id="getUserById" resultMap="admUserResultMap" parameterType="long">
-        <include refid="admUser"/>
-        where t.id = #{id}
-    </select>
 
     <select id="findUser" resultMap="admUserResultMap" parameterType="adminUserDTO">
         <include refid="admUser"/>
-        where t.accout = #{account} and t.password = password(#{password}) and t.isdel =1
+        where t.user_name = #{userName} and t.pass_word = password(#{password}) and t.deleted = 0
     </select>
-
-    <update id="delUser" parameterType="list">
-        update t_admuser set isdel = 0 where id in
-        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-
-    <update id="delRel" parameterType="list">
-        update t_user_group_rel set isdel = 0 where userid in
-        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-
-    <update id="updateUser" parameterType="adminUserDTO">
-        update t_admuser  SET
-            <if test="account !=null and account!=''">
-                accout= #{account},
-            </if>
-            <if test="name !=null and name!=''">
-                `name`= #{name},
-            </if>
-            <if test="mail !=null and mail!=''">
-                mail= #{mail},
-            </if>
-            <if test="phone !=null and phone!=''">
-                phone= #{phone},
-            </if>
-            <if test="department !=null and department!=''">
-                department= #{department},
-            </if>
-            <if test="password !=null and password!=''">
-                `password` = password(#{password}),
-            </if>
-
-            updatetime=now()
-
-        where id=#{id};
-
-    </update>
-
-    <insert id="addUser" parameterType="adminUserDTO">
-        INSERT into t_admuser
-            (accout,name,mail,phone,department,password,createtime,updatetime,isdel)
-        VALUES (
-            #{account},
-            #{name},
-            #{mail},
-            #{phone},
-            #{department},
-            password(#{password}),
-            now(),
-            now(),
-            #{isdel}
-        )
-    </insert>
-
-
 </mapper>

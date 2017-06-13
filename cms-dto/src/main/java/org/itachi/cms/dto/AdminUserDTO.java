@@ -1,7 +1,6 @@
 package org.itachi.cms.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by itachi on 2017/4/23.
@@ -11,24 +10,24 @@ import java.util.Date;
  */
 public class AdminUserDTO implements Serializable {
     private Long id;
-    private String account;
-    private String mail;
-    private String name;
-    private String phone;
-    private String department;
+    private String userNo;
+    private String userName;
     private String password;
-    private String groupids;
-    private Date createTime;
-    private Date updateTime;
-    private int isdel;
-
-    public String getGroupids() {
-        return groupids;
-    }
-
-    public void setGroupids(String groupids) {
-        this.groupids = groupids;
-    }
+    private Long roleId;
+    private String roleNo;
+    private String roleName;
+    private String lastLoginIP;
+    private Long lastLoginTime;
+    private Long lastLogoutTime;
+    private Integer loginTimes;
+    private String adminList;
+    private Long departmentId;
+    private String departmentNo;
+    private String duty;
+    private String relation;
+    private Long createTime;
+    private Long updateTime;
+    private Integer deleted;
 
     public Long getId() {
         return id;
@@ -38,44 +37,20 @@ public class AdminUserDTO implements Serializable {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
     }
 
-    public String getMail() {
-        return mail;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -86,27 +61,123 @@ public class AdminUserDTO implements Serializable {
         this.password = password;
     }
 
-    public Date getCreateTime() {
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleNo() {
+        return roleNo;
+    }
+
+    public void setRoleNo(String roleNo) {
+        this.roleNo = roleNo;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getLastLoginIP() {
+        return lastLoginIP;
+    }
+
+    public void setLastLoginIP(String lastLoginIP) {
+        this.lastLoginIP = lastLoginIP;
+    }
+
+    public Long getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Long getLastLogoutTime() {
+        return lastLogoutTime;
+    }
+
+    public void setLastLogoutTime(Long lastLogoutTime) {
+        this.lastLogoutTime = lastLogoutTime;
+    }
+
+    public Integer getLoginTimes() {
+        return loginTimes;
+    }
+
+    public void setLoginTimes(Integer loginTimes) {
+        this.loginTimes = loginTimes;
+    }
+
+    public String getAdminList() {
+        return adminList;
+    }
+
+    public void setAdminList(String adminList) {
+        this.adminList = adminList;
+    }
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getDepartmentNo() {
+        return departmentNo;
+    }
+
+    public void setDepartmentNo(String departmentNo) {
+        this.departmentNo = departmentNo;
+    }
+
+    public String getDuty() {
+        return duty;
+    }
+
+    public void setDuty(String duty) {
+        this.duty = duty;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public Long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
 
-    public int getIsdel() {
-        return isdel;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setIsdel(int isdel) {
-        this.isdel = isdel;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

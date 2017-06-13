@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="zTreeDemoBackground left">
+		<ul id="leftMenuTree" class="ztree"></ul>
+	</div>
+</body>
+
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+    $(function () {
+        var leftMenuSetting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        };
+        var url = [[@{/api/admin/menu}]];
+        $.post(url, function (result) {
+            if (result && length(result) > 0) {
+                var datas = [];
+                $.each(result, function (i, item) {
+                    var data = {
+                        "pId": item.pId,
+						"id": item.id,
+						"name": item.name
+                    };
+					if (item.pId === 0) {
+                        data["open"] = true;
+					} else {
+                        data["open"] = false;
+					}
+
+					if (item.url && item.url !== "") {
+                        data["click"] = "click: addTab('" + item.name + "','" + item.url + "')"
+					}
+                    datas.push(data);
+                });
+                $.fn.zTree.init($("#leftMenuTree"), leftMenuSetting, datas);
+			}
+        }).error(function (XMLHttpRequest) {
+            window.location.href = [[@{/login}]];
+            /*
+            if (XMLHttpRequest.status == 500) {
+                $("#errmsg").html("服务器异常，请联系管理员！");
+            } else if (XMLHttpRequest.status == 404) {
+                $("#errmsg").html("请求地址不存在，请联系管理员！");
+            } else {
+                if (XMLHttpRequest.responseJSON && XMLHttpRequest.responseJSON.message) {
+                    console.log(XMLHttpRequest.responseJSON.code);
+                    $("#errmsg").html(XMLHttpRequest.responseJSON.message);
+                }
+            }
+            */
+        });
+    });
+	/*]]>*/
+</script>
+
+</html>

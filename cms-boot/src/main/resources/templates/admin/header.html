@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<body>
     <style type="text/css">
         .fr {
             float: right;
@@ -17,11 +18,12 @@
     </style>
     <div class="content">
         <div class="fr">
-            <h2 style="margin-right:10px">欢迎：${#httpSession.getAttribute('CMS_USER').userName} !</h2>
+            <h2 style="margin-right:10px" th:text="'欢迎：' + ${#httpSession.getAttribute('CMS_USER').userName} + ' !'"></h2>
             <a th:href="@{/admin/logout}">退出</a>
         </div>
         <div class="main">
             <h1> CMS 管理系统 </h1>
         </div>
     </div>
+</body>
 </html>

@@ -2,88 +2,87 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>CMS 登陆</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style_log.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/userpanel.css}" />
-  <script type="text/javascript"  th:src="@{/js/jquery/jquery.min.js}"></script>
+    <title>CMS 登陆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style_log.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/userpanel.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
-
 <body class="login" mycollectionplug="bind">
-  <div class="login_m">
+<div class="login_m">
 
     <!--展示logo-->
     <!--<div class="login_logo">
     <img src="{{.staticUrl}}/images/logo.png" width="196" height="46"></div>
-  -->
+    -->
     <div class="login_boder">
-
-      <div class="login_padding" id="login_model">
-        <div style="color:#FF0000" id="errmsg"></div>
-        <h2>用户名</h2>
-        <label>
-        <input type="text" name="accout" id="accout" class="txt_input txt_input2" onfocus="if (value ==&#39;Your accout&#39;){value =&#39;&#39;}" onblur="if (value ==&#39;&#39;){value=&#39;Your accout&#39;}" value="Your accout" /></label>
-        <h2>密码</h2>
-        <label>
-        <input type="password" name="password" id="password" class="txt_input" onfocus="if (value ==&#39;******&#39;){value =&#39;&#39;}" onblur="if (value ==&#39;&#39;){value=&#39;******&#39;}" value="******" /></label>
-        <!--忘记密码-->
-        <!--<p class="forgot">
-      <a id="iforget" href="javascript:void(0);">Forgot your password?</a>
-    </p>
-    -->
-        <div class="rem_sub">
-          <!--<div class="rem_sub_l">
-      <input type="checkbox" name="checkbox" id="save_me">
-      <label for="checkbox">Remember me</label>
-    </div>
-    -->
-          <br />
-
-          <label>
-      <input type="submit" onclick="submitLogin()" class="sub_button" name="button" id="button" value="SIGN-IN" style="opacity: 0.7;" /></label>
+        <div class="login_padding" id="login_model">
+            <div style="color:#FF0000" id="errmsg"></div>
+            <h2>用户名</h2>
+            <label>
+                <input type="text" name="account" id="account" class="txt_input txt_input2" value="Your Account"/></label>
+            <h2>密码</h2>
+            <label>
+                <input type="password" name="password" id="password" class="txt_input" value="******"/></label>
+            <div class="rem_sub">
+                <label>
+                    <input type="submit" onclick="submitLogin()" class="sub_button" name="button" id="button"
+                           value="SIGN-IN" style="opacity: 0.7;"/></label>
+            </div>
         </div>
-      </div>
-      <br />
-      <br />
+        <br/>
+        <br/>
     </div>
-  </div>
+</div>
 </body>
 <script type="text/javascript" th:inline="javascript">
-  /*<![CDATA[*/
-  function submitLogin() {
-    var url = [[@{/login}]];
-    var data = {
-        accout: $("input[name='accout']").val(),
-        password: $("input[name='password']").val()
-    };
+    /*<![CDATA[*/
+    function submitLogin() {
+        var url = [[@{/admin/login}]];
+        var data = {
+            account: $("#account").val(),
+            password: $("#password").val()
+        };
 
-    $.post(url, data, function () {
-        /*
-        if (result == "success") {
-          $("#errmsg").html("")
-          location.href = "/"
-        }else{
-          $("#errmsg").html(result)
-        }
-        */
-        window.location.href = [[@{/}]];
-    }).error(function (XMLHttpRequest) {
-        if (XMLHttpRequest.status == 500) {
-            $("#errmsg").html("服务器异常，请联系管理员！");
-        } else if (XMLHttpRequest.status == 404) {
-            $("#errmsg").html("请求地址不存在，请联系管理员！");
-        } else {
-            if (XMLHttpRequest.responseJSON && XMLHttpRequest.responseJSON.message) {
-                console.log(XMLHttpRequest.responseJSON.code);
-                $("#errmsg").html(XMLHttpRequest.responseJSON.message);
+        $.post(url, data, function () {
+            window.location.href = [[@{/admin}]];
+        }).error(function (XMLHttpRequest) {
+            if (XMLHttpRequest.status == 500) {
+                $("#errmsg").html("服务器异常，请联系管理员！");
+            } else if (XMLHttpRequest.status == 404) {
+                $("#errmsg").html("请求地址不存在，请联系管理员！");
+            } else {
+                if (XMLHttpRequest.responseJSON && XMLHttpRequest.responseJSON.message) {
+                    console.log(XMLHttpRequest.responseJSON.code);
+                    $("#errmsg").html(XMLHttpRequest.responseJSON.message);
+                }
             }
-        }
+        });
+    }
+
+    $(function(){
+        $("#account").focus(function(){
+            if ($(this).val() === "Your Account") {
+                $(this).val("");
+            }
+        }).blur(function(){
+            if ($(this).val() === "") {
+                $(this).val("Your Account");
+            }
+        });
+
+        $("#password").focus(function(){
+            if ($(this).val() === "******") {
+                $(this).val("");
+            }
+        }).blur(function(){
+            if ($(this).val() === "") {
+                $(this).val("******");
+            }
+        });
     });
-}
-  /*]]>*/
+    /*]]>*/
 </script>
-
-
 </html>

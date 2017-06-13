@@ -28,7 +28,8 @@ public class AdminLoginController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void toLogin(@RequestParam("accout") String account, @RequestParam("password") String password) throws Exception {
+    public void toLogin(@RequestParam("account") String account,
+                        @RequestParam("password") String password) throws Exception {
         request.getSession(true).setAttribute(Constants.SESSION_KEY, adminUserService.login(account, password));
     }
 
@@ -44,9 +45,10 @@ public class AdminLoginController extends BaseController {
     /**
      * 退出登陆
      */
-    @RequestMapping(value = "/loginout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String loginOut() throws Exception {
-        // Utils.cleanSessions(request);
+        // adminUserService.logout(request);
+        Utils.cleanSessions(request);
         return "redirect:/admin/login";
     }
 }

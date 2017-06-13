@@ -37,40 +37,9 @@ mybatis:
 
 ---
 
-debug: true
-server:
-  context-path: /cms
-  port: 9091
-  tomcat:
-#    basedir: target/cms-boot
-    accesslog:
-      enabled: true
-logging:
-  config: classpath:log4j2/log4j2.xml
-#  level:
-#    root: DEBUG
-#    org.springframework.web: DEBUG
 spring:
   profiles: container
-  thymeleaf:
-    cache: false
-    enabled: true
-    check-template-location: true
-    content-type: text/html
-    encoding: UTF-8
-    mode: HTML5
-    suffix: .html
-    #prefix: /WEB-INF/templates/
   datasource:
     url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: false
-    default-property-inclusion: non_null
-    parser:
-      allow-single-quotes: true
-mybatis:
-  type-aliases-package: org.itachi.cms.dto

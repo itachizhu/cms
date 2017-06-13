@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>鼬痴内容管理系统</title>
+    <script th:replace="common/includes::head"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body class="easyui-layout">
+    <!--顶部logo区域-->
+    <div id="header" data-options="region:'north',split:true" th:href="@{/admin/header}" border="false" style="height:100px;">
+    </div>
+    <!--页面左侧导航栏-->
+    <div id="leftMenu" data-options="region:'west',iconCls:'icon-ok',title:'导航菜单',split:true"  th:href="@{/admin/menu}" style=" width:220px;background:#ffffff">
+    </div>
+    <!--中间展示区-->
+    <div data-options="region:'center'" style="padding:0px;background:#eee;">
+        <div id="mainTab" class="easyui-tabs" data-options="fit:true" border="false" style="background:#E0ECFF">
+            <div data-options="region:'west',iconCls:'icon-home',title:'   Home'"   th:href="@{/admin/welcome}" style="display:none;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

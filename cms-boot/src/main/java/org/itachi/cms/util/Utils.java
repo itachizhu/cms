@@ -1,8 +1,5 @@
 package org.itachi.cms.util;
 
-import org.itachi.cms.bean.AdminUserParamBean;
-import org.itachi.cms.dto.AdminUserDTO;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
@@ -15,7 +12,6 @@ import java.util.Enumeration;
  */
 public final class Utils {
     private Utils() {
-
     }
 
     public static void cleanSessions(HttpServletRequest request) {
@@ -34,15 +30,5 @@ public final class Utils {
         } catch (Exception e) {
         }
     }
-    public static AdminUserDTO adminUserForm(AdminUserParamBean dminUserParamBean) {
-        AdminUserDTO adminUserDTO = new AdminUserDTO();
-        adminUserDTO.setAccount(dminUserParamBean.getAdmaccout());
-        adminUserDTO.setPhone(dminUserParamBean.getAdmuserphone());
-        adminUserDTO.setId(dminUserParamBean.getAdmuserid());
-        adminUserDTO.setMail(dminUserParamBean.getAdmusermail());
-        adminUserDTO.setName(dminUserParamBean.getAdmusername());
-       return adminUserDTO;
-    }
-
-    }
+}
 

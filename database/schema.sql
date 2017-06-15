@@ -1,5 +1,9 @@
 CREATE DATABASE IF NOT EXISTS `cms` DEFAULT CHARACTER SET utf8mb4;
 
+grant all privileges on cms.* to 'cmsdemo'@'%' identified by 'cmsdemo@123';
+
+flush privileges;
+
 CREATE TABLE `cms`.`admin_users` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键，自增长',
   `user_no` VARCHAR(20) NULL COMMENT '员工号',
@@ -27,7 +31,7 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE=utf8mb4_unicode_ci
 COMMENT = '后台管理用户表';
 
-INSERT INTO `cmsadmin`.`admin_users`
+INSERT INTO `cms`.`admin_users`
 (
   `id`,
   `user_no`,

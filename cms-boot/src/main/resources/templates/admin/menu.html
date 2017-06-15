@@ -7,6 +7,7 @@
 	<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
         $(function () {
+            // window.top.exceptionDialog('系统异常', "服务器异常，请联系管理员！", [[@{/error}]]);
             var leftMenuSetting = {
                 data: {
                     simpleData: {
@@ -38,7 +39,7 @@
                     $.fn.zTree.init($("#leftMenuTree"), leftMenuSetting, datas);
                 }
             }).error(function (XMLHttpRequest) {
-                window.location.href = [[@{/login}]];
+                // window.top.location.href = [[@{/error}]];
 				/*
 				 if (XMLHttpRequest.status == 500) {
 				 $("#errmsg").html("服务器异常，请联系管理员！");
@@ -51,6 +52,7 @@
 				 }
 				 }
 				 */
+                window.top.handleException(XMLHttpRequest, [[@{/error}]]);
             });
         });
 		/*]]>*/

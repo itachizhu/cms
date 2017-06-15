@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.itachi.cms.mapper.AdminMenuMapper">
+
+    <resultMap id="adminMenuResultMap" type="adminMenuDTO">
+        <id property="id" column="id"/>
+        <result property="pId" column="parent_id" javaType="long"/>
+        <result property="no" column="menu_no" javaType="string"/>
+        <result property="name" column="menu_name" javaType="string"/>
+        <result property="url" column="menu_url" javaType="string"/>
+        <result property="type" column="menu_type" javaType="int"/>
+        <result property="order" column="menu_order" javaType="int"/>
+        <result property="isChild" column="is_child" javaType="int"/>
+    </resultMap>
+
+    <sql id="select_all">
+        select * from admin_menus m
+    </sql>
+
+    <sql id="count">
+        select count(1) from admin_menus m
+    </sql>
+
+    <select id="select" resultMap="adminMenuResultMap">
+        <include refid="select_all"/>
+    </select>
+</mapper>

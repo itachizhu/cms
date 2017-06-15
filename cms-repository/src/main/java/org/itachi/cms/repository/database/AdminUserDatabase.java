@@ -18,7 +18,7 @@ public class AdminUserDatabase implements AdminUserRepository {
     private AdminUserMapper adminUserMapper;
 
     @Override
-    public AdminUserDTO findUser(AdminUserDTO adminUserDTO) {
+    public AdminUserDTO findUser(AdminUserDTO adminUserDTO) throws Exception {
         return adminUserMapper.findUser(adminUserDTO);
     }
 }

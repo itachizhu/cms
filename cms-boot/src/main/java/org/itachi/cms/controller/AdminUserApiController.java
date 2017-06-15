@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Time: 16:51
  */
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/users")
 @Validated
 public class AdminUserApiController extends BaseController {
 }

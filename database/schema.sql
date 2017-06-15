@@ -68,3 +68,21 @@ VALUES
     1497335025953,
     1497335025953
   );
+
+CREATE TABLE `cms`.`admin_menus` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键，自增长',
+  `parent_id` BIGINT NOT NULL DEFAULT 0 COMMENT '父节点ID',
+  `menu_no` VARCHAR(50) NULL COMMENT '栏目编码',
+  `menu_name` varchar(64) DEFAULT NULL COMMENT '栏目名称',
+  `menu_url` VARCHAR(45) NULL COMMENT '栏目链接',
+  `menu_type` INT NULL DEFAULT 0 COMMENT '栏目类型',
+  `menu_order` INT NULL COMMENT '栏目排序',
+  `is_child` TINYINT NULL COMMENT '是否叶子节点',
+  PRIMARY KEY (`id`)  COMMENT '主键索引')
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8mb4
+  COLLATE=utf8mb4_unicode_ci
+  COMMENT = '后台管理菜单表';
+
+INSERT INTO `admin_menus` (`id`,`parent_id`,`menu_no`,`menu_name`,`menu_url`,`menu_type`,`menu_order`,`is_child`) VALUES (1,0,'001','账号管理','',0,1,0);
+INSERT INTO `admin_menus` (`id`,`parent_id`,`menu_no`,`menu_name`,`menu_url`,`menu_type`,`menu_order`,`is_child`) VALUES (2,1,'001001','管理员管理','/admin/users',0,1,1);

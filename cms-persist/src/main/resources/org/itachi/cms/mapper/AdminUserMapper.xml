@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.itachi.cms.mapper.AdminUserMapper">
 
-    <resultMap id="admUserResultMap" type="adminUserDTO">
+    <resultMap id="adminUserResultMap" type="adminUserDTO">
         <id property="id" column="id"/>
         <result property="userNo" column="user_no" javaType="string"/>
         <result property="userName" column="user_name" javaType="string"/>
@@ -32,7 +32,7 @@
         select count(1) from admin_users t
     </sql>
 
-    <select id="findUser" resultMap="admUserResultMap" parameterType="adminUserDTO">
+    <select id="findUser" resultMap="adminUserResultMap" parameterType="adminUserDTO">
         <include refid="admUser"/>
         where t.user_name = #{userName} and t.pass_word = password(#{password}) and t.deleted = 0
     </select>

@@ -9,5 +9,5 @@ import org.itachi.cms.dto.AdminUserDTO;
  * Time: 16:21
  */
 public interface AdminUserRepository {
-    AdminUserDTO findUser(AdminUserDTO adminUserDTO);
+    AdminUserDTO findUser(AdminUserDTO adminUserDTO) throws Exception;
 }

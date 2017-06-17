@@ -33,7 +33,7 @@ spring:
     parser:
       allow-single-quotes: true
   resources:
-    static-locations: classpath:/static/,classpath:/resources/,classpath:/public/,file:/data01/cms/static/
+    static-locations: classpath:/static/,classpath:/resources/,classpath:/public/,${static.location}
 mybatis:
   type-aliases-package: org.itachi.cms.dto
 

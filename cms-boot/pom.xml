@@ -120,5 +120,44 @@
                 -->
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <include>configuration/configuration.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>application.yml</exclude>
+                    <exclude>configuration/configuration.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mac-dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <static.location>file:/data01/cms/static/</static.location>
+                <upload.path>/data01/cms/static/</upload.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>windows-dev</id>
+            <properties>
+                <static.location>file:///C:/cms/static/</static.location>
+                <upload.path>C:\cms\static\</upload.path>
+            </properties>
+        </profile>
+    </profiles>
 </project>

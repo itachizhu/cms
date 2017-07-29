@@ -3,6 +3,7 @@ package org.itachi.cms.interceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.itachi.cms.constant.Constants;
+import org.itachi.cms.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -92,7 +92,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (session == null) {
             result.put("code", 502);
             result.put("message", "session不存在，用户没登陆");
-            clearCookies();
+            Utils.cleanSessions(request);
             abort(apiFlag, result);
             return false;
         }
@@ -100,7 +100,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (session.getAttribute(Constants.SESSION_KEY) == null) {
             result.put("code", 503);
             result.put("message", "session中对应的对象不存在，用户没登陆");
-            clearCookies();
+            Utils.cleanSessions(request);
             abort(apiFlag, result);
             return false;
         }
@@ -120,23 +120,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             } else {
                 response.sendRedirect(request.getContextPath() + "/" + url);
             }
-        }
-    }
-
-    private void clearCookies() {
-        try {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                Enumeration<String> names = session.getAttributeNames();
-                if (names != null) {
-                    while (names.hasMoreElements()) {
-                        String attribute = names.nextElement();
-                        session.removeAttribute(attribute);
-                    }
-                }
-                session.invalidate();
-            }
-        } catch (Exception e) {
         }
     }
 

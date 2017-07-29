@@ -26,6 +26,13 @@ spring:
     username: cmsdemo
     password: cmsdemo@123
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: org.apache.commons.dbcp2.BasicDataSource
+    dbcp2:
+      max-wait-millis: 10000
+      min-idle: 5
+      initial-size: 5
+      max-total: 10
+      pool-prepared-statements: true
   jackson:
     deserialization:
       fail-on-unknown-properties: false

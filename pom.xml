@@ -8,6 +8,7 @@
     <modules>
         <module>cms-commons</module>
         <module>cms-dto</module>
+        <module>cms-utils</module>
         <module>cms-persist</module>
         <module>cms-repository</module>
         <module>cms-core</module>
@@ -24,18 +25,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.9.RELEASE</spring.version>
-        <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
+        <spring.boot.version>1.5.6.RELEASE</spring.boot.version>
         <mybatis.version>3.4.4</mybatis.version>
         <jersey.version>2.26-b03</jersey.version>
         <shiro.version>1.3.2</shiro.version>
         <hystrix.version>1.5.12</hystrix.version>
         <metrics.version>3.2.1</metrics.version>
-        <axon.version>2.4.6</axon.version>
-        <!--<axon.version>3.0.2</axon.version>-->
+        <!--<axon.version>2.4.6</axon.version>-->
+        <axon.version>3.0.5</axon.version>
         <eureka.version>1.6.2</eureka.version>
-        <jackson.version>2.9.0.pr3</jackson.version>
+        <jackson.version>2.9.0.pr4</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
         <log4j.version>2.8.2</log4j.version>
+        <mockito.version>2.8.47</mockito.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -251,14 +253,28 @@
             -->
             <dependency>
                 <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>8.5.15</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>8.5.15</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-jasper</artifactId>
                 <version>8.5.12</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>1.1.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.3.5.Final</version>
             </dependency>
 
             <dependency>
@@ -599,6 +615,11 @@
                 <artifactId>axon-integration</artifactId>
                 <version>${axon.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-spring-boot-starter</artifactId>
+                <version>${axon.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.jayway.restassured</groupId>
@@ -615,8 +636,8 @@
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>1.10.19</version>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
 

@@ -14,4 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/admin/users")
 @Validated
 public class AdminUserApiController extends BaseController {
+
 }

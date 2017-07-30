@@ -41,3 +41,5 @@ docker rm cms-app
 # 使用docker-compose方式一次性创建多个容器并启动
 docker-compose up
 ```
+
+解决java虚拟机随机数问题：-Djava.security.egd=file:/dev/urandom

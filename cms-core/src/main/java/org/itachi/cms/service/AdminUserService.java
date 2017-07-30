@@ -1,5 +1,6 @@
 package org.itachi.cms.service;
 
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.itachi.cms.constant.Constants;
 import org.itachi.cms.dto.AdminUserDTO;
 import org.itachi.cms.error.CmsError;
@@ -21,6 +22,9 @@ public class AdminUserService {
     @Autowired
     @Qualifier("adminUserDatabase")
     private AdminUserRepository adminUserRepository;
+
+    @Autowired
+    private CommandGateway commandGateway;
 
     public AdminUserDTO login(String account, String password) throws Exception {
         // 首先判断账号合法，字符串必须符合对应的值，否则不需要再去数据库里面找了，浪费时间和资源
@@ -50,5 +54,9 @@ public class AdminUserService {
 
             }
         }
+    }
+
+    public void createAdminUser(AdminUserDTO dto) throws Exception {
+
     }
 }

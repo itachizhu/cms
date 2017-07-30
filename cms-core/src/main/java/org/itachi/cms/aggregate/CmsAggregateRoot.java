@@ -1,12 +1,7 @@
 package org.itachi.cms.aggregate;
 
-import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.itachi.cms.command.CreateAdminUserCommand;
-import org.itachi.cms.event.CreateAdminUserEvent;
-
-import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 /**
  * Created by itachi on 2017/7/29.
@@ -17,17 +12,11 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 @Aggregate(repository = "domainRepository")
 public class CmsAggregateRoot {
     @AggregateIdentifier
-    private String identifier;
+    protected String identifier;
 
     public String getIdentifier() {
         return identifier;
     }
 
     public CmsAggregateRoot() {}
-
-    @CommandHandler
-    public CmsAggregateRoot(CreateAdminUserCommand command) {
-        this.identifier = command.getIdentifier();
-        apply(new CreateAdminUserEvent(command.getIdentifier(), command.getAdminUser()));
-    }
 }
